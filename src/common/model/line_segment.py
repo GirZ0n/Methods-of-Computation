@@ -1,19 +1,13 @@
 from dataclasses import dataclass
-from decimal import Decimal
 from typing import List
 
-from src.common.model.aliases import Value
 
-
-@dataclass(init=False)
+@dataclass
 class LineSegment:
-    left: Decimal
-    right: Decimal
+    left: float
+    right: float
 
-    def __init__(self, left: Value, right: Value):
-        self.left = Decimal(left)
-        self.right = Decimal(right)
-
+    def __post_init__(self):
         if self.left > self.right:
             raise ValueError(f'The start of the segment should not exceed its end ({self.left} > {self.right}).')
 
@@ -33,9 +27,9 @@ class LineSegment:
         return segments
 
     @property
-    def length(self) -> Decimal:
+    def length(self) -> float:
         return self.right - self.left
 
     @property
-    def midpoint(self) -> Decimal:
+    def midpoint(self) -> float:
         return (self.left + self.right) / 2
