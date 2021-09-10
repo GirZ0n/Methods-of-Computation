@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import List, Union
+from typing import List
+
+from src.common.model.aliases import Value
 
 
 @dataclass(init=False)
@@ -8,7 +10,7 @@ class LineSegment:
     left: Decimal
     right: Decimal
 
-    def __init__(self, left: Union[float, Decimal], right: Union[float, Decimal]):
+    def __init__(self, left: Value, right: Value):
         self.left = Decimal(left)
         self.right = Decimal(right)
 

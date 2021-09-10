@@ -1,7 +1,6 @@
 from collections import Callable
-from decimal import Decimal
-from typing import Union
 
+from src.common.model.aliases import Value
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_separator import RootSeparator
 
@@ -12,7 +11,7 @@ class Tabulator(RootSeparator):
     def __init__(self, number_of_parts: int):
         self.number_of_parts = number_of_parts
 
-    def separate(self, function: Callable[[Union[Decimal, float]], Union[Decimal, float]], line_segment: LineSegment):
+    def separate(self, function: Callable[[Value], Value], line_segment: LineSegment):
         segments = line_segment.split(self.number_of_parts)
 
         found_segments = []
