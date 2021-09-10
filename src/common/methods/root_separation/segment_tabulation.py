@@ -1,3 +1,7 @@
+from collections import Callable
+from decimal import Decimal
+from typing import Union
+
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_separator import RootSeparator
 
@@ -8,13 +12,13 @@ class Tabulator(RootSeparator):
     def __init__(self, number_of_parts: int):
         self.number_of_parts = number_of_parts
 
-    def separate(self, line_segment: LineSegment, function, variable: str = 'x'):  # noqa: WPS110
+    def separate(self, function: Callable[[Union[Decimal, float]], Union[Decimal, float]], line_segment: LineSegment):
         segments = line_segment.split(self.number_of_parts)
 
         found_segments = []
         for segment in segments:
-            left_value = function.evalf(subs={variable: segment.left})
-            right_value = function.evalf(subs={variable: segment.right})
+            left_value = function(segment.left)
+            right_value = function(segment.right)
 
             if left_value * right_value <= 0:
                 found_segments.append(segment)

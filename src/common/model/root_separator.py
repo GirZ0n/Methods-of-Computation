@@ -1,10 +1,15 @@
 from abc import ABC, abstractmethod
-from typing import List
+from decimal import Decimal
+from typing import Callable, List, Union
 
 from src.common.model.line_segment import LineSegment
 
 
 class RootSeparator(ABC):
     @abstractmethod
-    def separate(self, line_segment: LineSegment, function, variable: str = 'x') -> List[LineSegment]:  # noqa: WPS110
+    def separate(
+        self,
+        function: Callable[[Union[Decimal, float]], Union[Decimal, float]],
+        line_segment: LineSegment,
+    ) -> List[LineSegment]:
         raise NotImplementedError
