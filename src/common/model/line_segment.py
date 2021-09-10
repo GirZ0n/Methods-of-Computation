@@ -22,11 +22,11 @@ class LineSegment:
         part_length = self.length / parts
 
         segments = []
-        current_left = self.left
+        left_boundary = self.left
         for _ in range(parts):
-            current_right = current_left + part_length
-            segments.append(LineSegment(current_left, current_right))
-            current_left = current_right
+            right_boundary = left_boundary + part_length
+            segments.append(LineSegment(left_boundary, right_boundary))
+            left_boundary = right_boundary
 
         return segments
 
