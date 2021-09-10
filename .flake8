@@ -2,11 +2,13 @@
 max-line-length=120
 
 ignore=D10, # Missing docstrings
-       WPS305, # Forbid f strings
+       WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.
        WPS421, # Forbid calling some built-in functions.
        WPS221, # Forbid complex lines.
+       WPS111, # Forbid short variable or module names.
 
 exclude=venv,
 
+allowed-domain-names=variable,
 
