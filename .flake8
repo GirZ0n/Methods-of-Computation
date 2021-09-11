@@ -8,6 +8,7 @@ ignore=D10, # Missing docstrings
        WPS221, # Forbid complex lines.
        WPS111, # Forbid short variable or module names.
        WPS210, # Forbid too many local variables in the unit of code.
+       WPS211, # Forbid too many arguments for a function or method.
        WPS226, # Forbid the overuse of string constants.
 
 exclude=venv,
