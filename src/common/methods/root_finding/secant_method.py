@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sympy import lambdify, parse_expr
+from sympy import lambdify
 
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_finder import RootFinder, RootFinderStats
