@@ -13,13 +13,22 @@ class RootFinderStats:
     error: Optional[float]
     residual: Optional[float]
 
-    def __init__(self):
-        self.line_segment = None
-        self.initial_approximation = None
-        self.number_of_steps = None
-        self.approximate_solution = None
-        self.error = None
-        self.residual = None
+    def __init__(
+        self,
+        *,
+        line_segment: Optional[LineSegment] = None,
+        initial_approximation: Optional[float] = None,
+        number_of_steps: Optional[float] = None,
+        approximate_solution: Optional[float] = None,
+        error: Optional[float] = None,
+        residual: Optional[float] = None,
+    ):
+        self.line_segment = line_segment
+        self.initial_approximation = initial_approximation
+        self.number_of_steps = number_of_steps
+        self.approximate_solution = approximate_solution
+        self.error = error
+        self.residual = residual
 
     def __str__(self):
         output = f"""
