@@ -1,13 +1,16 @@
 from typing import Optional
 
-from sympy import lambdify, parse_expr
+from sympy import lambdify
 
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_finder import RootFinder, RootFinderStats
 
 
 class BisectionMethod(RootFinder):
-    stats: Optional[RootFinderStats] = None
+    stats: Optional[RootFinderStats]
+
+    def __init__(self):
+        self.stats = None
 
     def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
         self.stats = RootFinderStats()
