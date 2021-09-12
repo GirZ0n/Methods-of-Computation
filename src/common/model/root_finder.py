@@ -32,7 +32,7 @@ class RootFinderStats:
         self.residual = residual
 
     def __str__(self):
-        initials = None
+        initials = self.initial_approximation
         if isinstance(self.initial_approximation, float):
             initials = round(self.initial_approximation, OUTPUT_PRECISION)
         elif isinstance(self.initial_approximation, list):
