@@ -45,5 +45,13 @@ class RootFinderStats:
 
 class RootFinder(ABC):
     @abstractmethod
-    def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
+    def find(
+        self,
+        *,
+        expression,
+        variable: str = 'x',
+        line_segment: LineSegment,
+        accuracy: float,
+        loop_threshold: int = 1000,
+    ) -> Optional[float]:
         raise NotImplementedError

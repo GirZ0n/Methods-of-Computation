@@ -12,12 +12,23 @@ class BisectionMethod(RootFinder):
     def __init__(self):
         self.stats = None
 
-    def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
+    def find(
+        self,
+        *,
+        expression,
+        variable: str = 'x',
+        line_segment: LineSegment,
+        accuracy: float,
+        loop_threshold: int = 1000,
+    ) -> Optional[float]:
         f = lambdify(variable, expression)
 
         current_segment = line_segment
         current_step = 0
         while current_segment.length > 2 * accuracy:
+            if loop_threshold == current_step:
+                return None
+
             left_value = f(current_segment.left)
             midpoint_value = f(current_segment.midpoint)
             right_value = f(current_segment.right)
