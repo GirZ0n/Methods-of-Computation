@@ -2,6 +2,7 @@
 max-line-length=120
 
 ignore=D10, # Missing docstrings
+       I00, # flake8-isort
        WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.
        WPS421, # Forbid calling some built-in functions.
@@ -10,6 +11,8 @@ ignore=D10, # Missing docstrings
        WPS210, # Forbid too many local variables in the unit of code.
        WPS211, # Forbid too many arguments for a function or method.
        WPS226, # Forbid the overuse of string constants.
+       WPS237, # Forbids f strings that are too complex.
+       WPS407, # Forbid mutable constants on a module level.
 
 exclude=venv,
 

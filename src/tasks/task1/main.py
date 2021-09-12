@@ -12,7 +12,7 @@ LINE_SEGMENT = LineSegment(-5, 3)
 
 F = parse_expr('x - 10 * sin(x)')
 
-ACCURACY = 10 ** -9
+ACCURACY = 10 ** -6
 N = 1000
 
 METHOD_NAME_TO_ROOT_FINDER = {
@@ -45,7 +45,7 @@ def separate_roots() -> List[LineSegment]:
 
 
 def print_header(text: str):
-    print('\033[95m' + '\033[1m' + text + '\033[0m')
+    print(f'\033[95m\033[1m{text}\033[0m')
 
 
 def main():
