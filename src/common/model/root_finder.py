@@ -1,13 +1,14 @@
 import textwrap
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import List, Optional, Union
 
+from src.common.config import OUTPUT_PRECISION
 from src.common.model.line_segment import LineSegment
 
 
 class RootFinderStats:
     line_segment: Optional[LineSegment]
-    initial_approximation: Optional[float]
+    initial_approximation: Optional[Union[float, List[float]]]
     number_of_steps: Optional[float]
     approximate_solution: Optional[float]
     error: Optional[float]
@@ -17,7 +18,7 @@ class RootFinderStats:
         self,
         *,
         line_segment: Optional[LineSegment] = None,
-        initial_approximation: Optional[float] = None,
+        initial_approximation: Optional[Union[float, List[float]]] = None,
         number_of_steps: Optional[float] = None,
         approximate_solution: Optional[float] = None,
         error: Optional[float] = None,
@@ -31,13 +32,19 @@ class RootFinderStats:
         self.residual = residual
 
     def __str__(self):
+        initials = None
+        if isinstance(self.initial_approximation, float):
+            initials = round(self.initial_approximation, OUTPUT_PRECISION)
+        elif isinstance(self.initial_approximation, list):
+            initials = list(map(lambda elem: round(elem, OUTPUT_PRECISION), self.initial_approximation))
+
         output = f"""
             Line segment: {self.line_segment}
-            Initial approximation: {self.initial_approximation:.10f}
+            Initial approximation: {initials}
             Number of steps: {self.number_of_steps}
-            Approximate solution: {self.approximate_solution:.10f}
-            Error: {self.error:.10f}
-            Residual: {self.residual:.10f}
+            Approximate solution: {round(self.approximate_solution, OUTPUT_PRECISION)}
+            Error: {round(self.error, OUTPUT_PRECISION)}
+            Residual: {round(self.residual, OUTPUT_PRECISION)}
         """
 
         return textwrap.dedent(output).strip()

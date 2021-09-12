@@ -44,7 +44,7 @@ class SecantMethod(RootFinder):
 
         self.stats = RootFinderStats(
             line_segment=line_segment,
-            initial_approximation=line_segment.left,
+            initial_approximation=[line_segment.left, line_segment.right],
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=abs(approximate_solution - current_x),
