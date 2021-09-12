@@ -21,6 +21,8 @@ class BisectionMethod(RootFinder):
         accuracy: float,
         loop_threshold: int = 1000,
     ) -> Optional[float]:
+        self.stats = None
+
         f = lambdify(variable, expression)
 
         current_segment = line_segment

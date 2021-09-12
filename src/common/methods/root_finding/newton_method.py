@@ -21,6 +21,8 @@ class NewtonMethod(RootFinder):
         accuracy: float,
         loop_threshold: int = 1000,
     ) -> Optional[float]:
+        self.stats = None
+
         diff_expression = diff(expression)
         f = lambdify(variable, expression)
         df = lambdify(variable, diff_expression)
@@ -67,6 +69,8 @@ class ModifiedNewtonMethod(RootFinder):
         accuracy: float,
         loop_threshold: int = 1000,
     ) -> Optional[float]:
+        self.stats = None
+
         diff_expression = diff(expression)
         f = lambdify(variable, expression)
         df = lambdify(variable, diff_expression)
