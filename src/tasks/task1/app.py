@@ -49,13 +49,13 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
 
         st.markdown(
             f"""
-            Отрезок: ${stats.line_segment}$  
-            Начальное приближение: ${stats.round_initial_approximation()}$  
-            Количество шагов: ${stats.number_of_steps}$  
-            $x_m = {round(stats.approximate_solution, OUTPUT_PRECISION)}$  
-            $|x_m - x_{{m-1}}| = {round(stats.error, OUTPUT_PRECISION)}$  
-            $|f(x_m)| = {round(stats.residual, OUTPUT_PRECISION)}$  
-            """
+            Отрезок: ${stats.line_segment}$<br/>
+            Начальное приближение: ${stats.round_initial_approximation()}$<br/>
+            Количество шагов: ${stats.number_of_steps}$<br/>
+            $x_m = {round(stats.approximate_solution, OUTPUT_PRECISION)}$<br/>
+            $|x_m - x_{{m-1}}| = {round(stats.error, OUTPUT_PRECISION)}$<br/>
+            $|f(x_m)| = {round(stats.residual, OUTPUT_PRECISION)}$<br/>
+            """,
         )
 
 
@@ -73,7 +73,7 @@ def app():
         with right_column:
             b = st.number_input('B:', value=3)
 
-        accuracy = st.number_input('Точность:', value=10 ** -6, format="%e")
+        accuracy = st.number_input('Точность:', value=10 ** -6, format='%e')
 
         number_of_parts = st.number_input('Количество частей:', value=1000)
 
@@ -91,6 +91,4 @@ def app():
 
 
 if __name__ == '__main__':
-    # st.set_page_config(layout='wide')
-
     app()

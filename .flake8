@@ -3,6 +3,7 @@ max-line-length=120
 
 ignore=D10, # Missing docstrings
        I00, # flake8-isort
+       E402, # Module level import not at top of file.
        WPS111, # Forbid short variable or module names.
        WPS210, # Forbid too many local variables in the unit of code.
        WPS211, # Forbid too many arguments for a function or method.
@@ -12,6 +13,7 @@ ignore=D10, # Missing docstrings
        WPS237, # Forbids f strings that are too complex.
        WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.
+       WPS323, # Forbid % formatting on strings.
        WPS407, # Forbid mutable constants on a module level.
        WPS421, # Forbid calling some built-in functions.
 
