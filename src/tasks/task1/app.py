@@ -89,7 +89,6 @@ def app():
     st.subheader('Отделение корней')
     segments = root_separation(number_of_parts=number_of_parts, expression=expression, line_segment=line_segment)
 
-    # st.subheader('Уточнение корней')
     root_find(segments=segments, method_name=method_name, accuracy=accuracy, expression=expression)
 
 
