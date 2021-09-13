@@ -37,6 +37,7 @@ class RootFinderStats:
             initials = round(self.initial_approximation, OUTPUT_PRECISION)
         elif isinstance(self.initial_approximation, list):
             initials = list(map(lambda elem: round(elem, OUTPUT_PRECISION), self.initial_approximation))
+            initials = ', '.join(map(str, initials))
 
         output = f"""
             Line segment: {self.line_segment}
