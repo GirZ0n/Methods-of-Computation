@@ -45,6 +45,7 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
     for number, segment in enumerate(segments, start=1):
         root_finder.find(expression=expression, line_segment=segment, accuracy=accuracy)
         stats = root_finder.stats
+
         st.markdown(f'#### Отрезок №{number}')
 
         st.markdown(
