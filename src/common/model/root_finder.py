@@ -31,17 +31,21 @@ class RootFinderStats:
         self.error = error
         self.residual = residual
 
-    def __str__(self):
+    def round_initial_approximation(self):
         initials = self.initial_approximation
+
         if isinstance(self.initial_approximation, float):
             initials = round(self.initial_approximation, OUTPUT_PRECISION)
         elif isinstance(self.initial_approximation, list):
             initials = list(map(lambda elem: round(elem, OUTPUT_PRECISION), self.initial_approximation))
             initials = ', '.join(map(str, initials))
 
+        return initials
+
+    def __str__(self):
         output = f"""
             Line segment: {self.line_segment}
-            Initial approximation: {initials}
+            Initial approximation: {self.round_initial_approximation()}
             Number of steps: {self.number_of_steps}
             Approximate solution: {round(self.approximate_solution, OUTPUT_PRECISION)}
             Error: {round(self.error, OUTPUT_PRECISION)}
