@@ -46,17 +46,18 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
         root_finder.find(expression=expression, line_segment=segment, accuracy=accuracy)
         stats = root_finder.stats
 
-        st.markdown(f'#### Отрезок №{number}')
+        st.subheader(f'Отрезок №{number}')
 
         st.markdown(
             f"""
-            Отрезок: ${stats.line_segment}$<br/>
-            Начальное приближение: ${stats.round_initial_approximation()}$<br/>
-            Количество шагов: ${stats.number_of_steps}$<br/>
-            $x_m = {round(stats.approximate_solution, OUTPUT_PRECISION)}$<br/>
-            $|x_m - x_{{m-1}}| = {round(stats.error, OUTPUT_PRECISION)}$<br/>
-            $|f(x_m)| = {round(stats.residual, OUTPUT_PRECISION)}$<br/>
+            - Отрезок: ${stats.line_segment}$<br/>
+            - Начальное приближение: ${stats.round_initial_approximation()}$<br/>
+            - Количество шагов: ${stats.number_of_steps}$<br/>
+            - $x_m = {round(stats.approximate_solution, OUTPUT_PRECISION)}$<br/>
+            - $|x_m - x_{{m-1}}| = {round(stats.error, OUTPUT_PRECISION)}$<br/>
+            - $|f(x_m)| = {round(stats.residual, OUTPUT_PRECISION)}$<br/>
             """,
+            unsafe_allow_html=True,
         )
 
 
@@ -83,11 +84,12 @@ def app():
 
     st.title('Численные методы решения нелинейных уравнений')
 
+    method_name = st.selectbox('Метод:', options=METHOD_NAME_TO_ROOT_FINDER.keys())
+
     st.subheader('Отделение корней')
     segments = root_separation(number_of_parts=number_of_parts, expression=expression, line_segment=line_segment)
 
-    st.subheader('Уточнение корней')
-    method_name = st.selectbox('Метод:', options=METHOD_NAME_TO_ROOT_FINDER.keys())
+    # st.subheader('Уточнение корней')
     root_find(segments=segments, method_name=method_name, accuracy=accuracy, expression=expression)
 
 
