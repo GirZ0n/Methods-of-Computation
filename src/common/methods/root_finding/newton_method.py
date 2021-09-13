@@ -12,7 +12,17 @@ class NewtonMethod(RootFinder):
     def __init__(self):
         self.stats = None
 
-    def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
+    def find(
+        self,
+        *,
+        expression,
+        variable: str = 'x',
+        line_segment: LineSegment,
+        accuracy: float,
+        loop_threshold: int = 1000,
+    ) -> Optional[float]:
+        self.stats = None
+
         diff_expression = diff(expression)
         f = lambdify(variable, expression)
         df = lambdify(variable, diff_expression)
@@ -22,6 +32,9 @@ class NewtonMethod(RootFinder):
 
         current_step = 1
         while abs(current_x - previous_x) > accuracy:
+            if loop_threshold == current_step:
+                return None
+
             previous_x = current_x
             current_x = previous_x - f(previous_x) / df(previous_x)
 
@@ -47,7 +60,17 @@ class ModifiedNewtonMethod(RootFinder):
     def __init__(self):
         self.stats = None
 
-    def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
+    def find(
+        self,
+        *,
+        expression,
+        variable: str = 'x',
+        line_segment: LineSegment,
+        accuracy: float,
+        loop_threshold: int = 1000,
+    ) -> Optional[float]:
+        self.stats = None
+
         diff_expression = diff(expression)
         f = lambdify(variable, expression)
         df = lambdify(variable, diff_expression)
@@ -57,6 +80,9 @@ class ModifiedNewtonMethod(RootFinder):
 
         current_step = 1
         while abs(current_x - previous_x) > accuracy:
+            if loop_threshold == current_step:
+                return None
+
             previous_x = current_x
             current_x = previous_x - f(previous_x) / df(line_segment.left)
 

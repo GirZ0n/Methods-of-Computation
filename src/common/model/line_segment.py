@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import List
 
+from src.common.config import OUTPUT_PRECISION
+
 
 @dataclass
 class LineSegment:
@@ -12,7 +14,7 @@ class LineSegment:
             raise ValueError(f'The start of the segment should not exceed its end ({self.left} > {self.right}).')
 
     def __str__(self) -> str:
-        return f'[{self.left}, {self.right}]'
+        return f'[{round(self.left, OUTPUT_PRECISION)}, {round(self.right, OUTPUT_PRECISION)}]'
 
     def split(self, parts: int = 2) -> List['LineSegment']:
         part_length = self.length / parts

@@ -8,6 +8,7 @@ ignore=D10, # Missing docstrings
        WPS211, # Forbid too many arguments for a function or method.
        WPS221, # Forbid complex lines.
        WPS226, # Forbid the overuse of string constants.
+       WPS234, # Forbid overly complex annotations.
        WPS237, # Forbids f strings that are too complex.
        WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.

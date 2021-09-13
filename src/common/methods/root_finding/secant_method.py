@@ -12,7 +12,17 @@ class SecantMethod(RootFinder):
     def __init__(self):
         self.stats = None
 
-    def find(self, *, expression, variable: str = 'x', line_segment: LineSegment, accuracy: float) -> Optional[float]:
+    def find(
+        self,
+        *,
+        expression,
+        variable: str = 'x',
+        line_segment: LineSegment,
+        accuracy: float,
+        loop_threshold: int = 1000,
+    ) -> Optional[float]:
+        self.stats = None
+
         f = lambdify(variable, expression)
 
         previous_x = line_segment.left
@@ -21,6 +31,9 @@ class SecantMethod(RootFinder):
 
         current_step = 1
         while abs(next_x - current_x) > accuracy:
+            if loop_threshold == current_step:
+                return None
+
             previous_x = current_x
             current_x = next_x
             next_x = current_x - (f(current_x) / (f(current_x) - f(previous_x))) * (current_x - previous_x)
@@ -31,7 +44,7 @@ class SecantMethod(RootFinder):
 
         self.stats = RootFinderStats(
             line_segment=line_segment,
-            initial_approximation=line_segment.left,
+            initial_approximation=[line_segment.left, line_segment.right],
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=abs(approximate_solution - current_x),
