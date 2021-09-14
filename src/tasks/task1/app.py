@@ -54,7 +54,7 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
             - Начальное приближение: ${stats.round_initial_approximation()}$<br/>
             - Количество шагов: ${stats.number_of_steps}$<br/>
             - $x_m = {round(stats.approximate_solution, OUTPUT_PRECISION)}$<br/>
-            - $|x_m - x_{{m-1}}| = {round(stats.error, OUTPUT_PRECISION)}$<br/>
+            - $\\Delta = {round(stats.error, OUTPUT_PRECISION)}$<br/>
             - $|f(x_m)| = {round(stats.residual, OUTPUT_PRECISION)}$<br/>
             """,
             unsafe_allow_html=True,

@@ -48,7 +48,7 @@ class NewtonMethod(RootFinder):
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=abs(approximate_solution - previous_x),
-            residual=f(approximate_solution),
+            residual=abs(f(approximate_solution)),
         )
 
         return approximate_solution
@@ -96,7 +96,7 @@ class ModifiedNewtonMethod(RootFinder):
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=abs(approximate_solution - previous_x),
-            residual=f(approximate_solution),
+            residual=abs(f(approximate_solution)),
         )
 
         return approximate_solution

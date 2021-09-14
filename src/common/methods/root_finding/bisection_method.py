@@ -52,7 +52,7 @@ class BisectionMethod(RootFinder):
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=current_segment.length,
-            residual=f(approximate_solution),
+            residual=abs(f(approximate_solution)),
         )
 
         return approximate_solution

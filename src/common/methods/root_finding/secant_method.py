@@ -48,7 +48,7 @@ class SecantMethod(RootFinder):
             number_of_steps=current_step,
             approximate_solution=approximate_solution,
             error=abs(approximate_solution - current_x),
-            residual=f(approximate_solution),
+            residual=abs(f(approximate_solution)),
         )
 
         return approximate_solution
