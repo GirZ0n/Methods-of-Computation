@@ -14,6 +14,7 @@ ignore=D10, # Missing docstrings
        WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.
        WPS323, # Forbid % formatting on strings.
+       WPS342, # Forbid \\ escape sequences inside regular strings.
        WPS407, # Forbid mutable constants on a module level.
        WPS421, # Forbid calling some built-in functions.
 
