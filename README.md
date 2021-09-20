@@ -1,4 +1,4 @@
-# Methods-of-Computation
+# Methods of computation (Numerical analysis)
 Repository for practice in methods of computation.
 
 ## Homework
