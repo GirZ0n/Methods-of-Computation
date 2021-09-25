@@ -11,7 +11,9 @@ class RandomNodesGenerator(NodesGenerator):
 
     def __init__(self, seed: int = None):
         self.seed = seed
-        random.seed(seed)
 
     def generate_nodes(self, *, line_segment: LineSegment, number_of_nodes: int) -> List[float]:
-        return sample_floats(line_segment.left, line_segment.right, number_of_nodes)
+        random.seed(self.seed)
+        nodes = sample_floats(line_segment.left, line_segment.right, number_of_nodes)
+        random.seed(None)
+        return nodes
