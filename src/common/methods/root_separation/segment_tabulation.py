@@ -14,7 +14,7 @@ class Tabulator(RootSeparator):
 
     def separate(self, *, expression, variable: str = 'x', line_segment: LineSegment) -> List[LineSegment]:
         f = lambdify(variable, expression)
-        segments = line_segment.split(self.number_of_parts)
+        segments = line_segment.split_into_segments(self.number_of_parts)
 
         found_segments = []
         for segment in segments:
