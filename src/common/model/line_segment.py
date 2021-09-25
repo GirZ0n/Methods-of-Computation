@@ -16,17 +16,22 @@ class LineSegment:
     def __str__(self) -> str:
         return f'[{round(self.left, OUTPUT_PRECISION)}, {round(self.right, OUTPUT_PRECISION)}]'
 
-    def split(self, parts: int = 2) -> List['LineSegment']:
+    def split_into_segments(self, parts: int = 2) -> List['LineSegment']:
+        points = self.split_into_points(parts)
+
+        return [LineSegment(left_boundary, right_boundary) for left_boundary, right_boundary in zip(points, points[1:])]
+
+    def split_into_points(self, parts: int = 2) -> List[float]:
         part_length = self.length / parts
 
-        segments = []
+        points = [self.left]
         left_boundary = self.left
         for _ in range(parts):
             right_boundary = left_boundary + part_length
-            segments.append(LineSegment(left_boundary, right_boundary))
+            points.append(right_boundary)
             left_boundary = right_boundary
 
-        return segments
+        return points
 
     @property
     def length(self) -> float:
