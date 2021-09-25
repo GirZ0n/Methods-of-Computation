@@ -9,7 +9,6 @@ def sample_floats(low: float, high: float, k: int = 1) -> List[float]:
         x = random.uniform(low, high)
         while x in seen:
             x = random.uniform(low, high)
-
         seen.add(x)
 
     return list(seen)

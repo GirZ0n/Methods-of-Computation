@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from src.common.model.line_segment import LineSegment
 from src.common.model.nodes_generator import NodesGenerator
-from src.utils import sample_floats
+from src.common.utils import sample_floats
 
 
 class RandomNodesGenerator(NodesGenerator):
