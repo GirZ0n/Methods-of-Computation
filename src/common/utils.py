@@ -1,5 +1,10 @@
 import random
-from typing import List
+from typing import List, Optional
+
+import pandas as pd
+import plotly.graph_objects as go
+
+from src.common.config import LIGHT_GRAY, MAIN_COLOR, SECOND_COLOR
 
 
 def sample_floats(low: float, high: float, k: int = 1) -> List[float]:
@@ -12,3 +17,17 @@ def sample_floats(low: float, high: float, k: int = 1) -> List[float]:
         seen.add(x)
 
     return list(seen)
+
+
+def plot_on_horizontal_axis(df: pd.DataFrame, column: str, extra_points: Optional[List[float]] = None) -> go.Figure:
+    fig = go.Figure()
+    fig.update_layout(height=100, plot_bgcolor='white', showlegend=False, margin={'t': 0, 'b': 0, 'l': 0, 'r': 0})
+    fig.update_xaxes(title=None)
+    fig.update_yaxes(zeroline=True, showticklabels=False, zerolinecolor=LIGHT_GRAY, title=None)
+
+    fig.add_scatter(x=df[column], y=[0] * len(df), mode='markers', marker_color=SECOND_COLOR)
+
+    if extra_points is not None:
+        fig.add_scatter(x=extra_points, y=[0] * len(df), mode='markers', marker_color=MAIN_COLOR)
+
+    return fig
