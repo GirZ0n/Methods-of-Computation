@@ -25,9 +25,9 @@ def plot_on_horizontal_axis(df: pd.DataFrame, column: str, extra_points: Optiona
     fig.update_xaxes(title=None)
     fig.update_yaxes(zeroline=True, showticklabels=False, zerolinecolor=LIGHT_GRAY, title=None)
 
-    fig.add_scatter(x=df[column], y=[0] * len(df), mode='markers', marker_color=SECOND_COLOR)
+    fig.add_scatter(x=df[column], y=[0 for _ in range(len(df))], mode='markers', marker_color=SECOND_COLOR)
 
     if extra_points is not None:
-        fig.add_scatter(x=extra_points, y=[0] * len(df), mode='markers', marker_color=MAIN_COLOR)
+        fig.add_scatter(x=extra_points, y=[0 for _ in range(len(df))], mode='markers', marker_color=MAIN_COLOR)
 
     return fig
