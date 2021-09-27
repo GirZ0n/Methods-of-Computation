@@ -14,12 +14,15 @@ ignore=D10, # Missing docstrings
        WPS226, # Forbid the overuse of string constants.
        WPS234, # Forbid overly complex annotations.
        WPS237, # Forbids f strings that are too complex.
+       WPS301, # Forbid imports like import os.path.
        WPS305, # Forbid f strings.
        WPS306, # Forbid writing classes without base classes.
        WPS323, # Forbid % formatting on strings.
        WPS342, # Forbid \\ escape sequences inside regular strings.
        WPS407, # Forbid mutable constants on a module level.
        WPS421, # Forbid calling some built-in functions.
+       WPS432, # Forbid magic numbers.
+       WPS462, # Forbids direct usage of multiline strings.
 
 exclude=venv,
 
