@@ -8,9 +8,9 @@ from sympy import lambdify
 from src.common.model.line_segment import LineSegment
 
 
-class NodesGenerator(ABC):
+class TableOfValuesGenerator(ABC):
     @abstractmethod
-    def generate_nodes(self, *, line_segment: LineSegment, number_of_nodes: int) -> List[float]:
+    def generate_points(self, *, line_segment: LineSegment, number_of_points: int) -> List[float]:
         raise NotImplementedError
 
     def generate_table(
@@ -19,11 +19,11 @@ class NodesGenerator(ABC):
         expression,
         variable: str = 'x',
         line_segment: LineSegment,
-        number_of_nodes: int,
+        number_of_points: int,
     ) -> pd.DataFrame:
         f = lambdify(variable, expression)
 
-        nodes = np.array(sorted(self.generate_nodes(line_segment=line_segment, number_of_nodes=number_of_nodes)))
+        nodes = np.array(sorted(self.generate_points(line_segment=line_segment, number_of_points=number_of_points)))
         values = f(nodes)
 
         return pd.DataFrame.from_dict({'x': nodes, 'y': values})
