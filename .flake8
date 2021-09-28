@@ -8,6 +8,7 @@ ignore=D10, # Missing docstrings
        E402, # Module level import not at top of file.
        WPS100, # Forbid blacklisted module names.
        WPS111, # Forbid short variable or module names.
+       WPS115, # Require snake_case for naming class attributes.
        WPS210, # Forbid too many local variables in the unit of code.
        WPS211, # Forbid too many arguments for a function or method.
        WPS221, # Forbid complex lines.
