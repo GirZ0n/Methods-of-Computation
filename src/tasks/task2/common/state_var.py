@@ -1,5 +1,5 @@
 from enum import Enum, unique
-from typing import Any
+from typing import Any, Optional
 
 import streamlit as st
 
@@ -12,9 +12,13 @@ class StateVar(Enum):
     NUMBER_OF_NODES = 'number_of_nodes'
     POLYNOMIAL_DEGREE = 'polynomial_degree'
     INTERPOLATION_POINT = 'interpolation_point'
+    RANDOM_STATE = 'random_state'
 
-    def get(self) -> Any:
-        return st.session_state[self.value]
+    def get(self, *, default: Optional[Any] = None) -> Any:
+        if default is None:
+            return st.session_state[self.value]
+        else:
+            return st.session_state.get(self.value, default)
 
     def set(self, value: Any) -> None:
         st.session_state[self.value] = value
