@@ -17,8 +17,8 @@ class StateVar(Enum):
     def get(self, *, default: Optional[Any] = None) -> Any:
         if default is None:
             return st.session_state[self.value]
-        else:
-            return st.session_state.get(self.value, default)
+
+        return st.session_state.get(self.value, default)
 
     def set(self, value: Any) -> None:
         st.session_state[self.value] = value
