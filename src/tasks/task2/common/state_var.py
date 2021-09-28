@@ -14,10 +14,7 @@ class StateVar(Enum):
     INTERPOLATION_POINT = 'interpolation_point'
     RANDOM_STATE = 'random_state'
 
-    def get(self, *, default: Optional[Any] = None) -> Any:
-        if default is None:
-            return st.session_state[self.value]
-
+    def get(self, *, default: Optional[Any] = None) -> Optional[Any]:
         return st.session_state.get(self.value, default)
 
     def set(self, value: Any) -> None:
