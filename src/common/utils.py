@@ -23,11 +23,21 @@ def plot_on_horizontal_axis(df: pd.DataFrame, column: str, extra_points: Optiona
     fig = go.Figure()
     fig.update_layout(height=100, plot_bgcolor='white', showlegend=False, margin={'t': 0, 'b': 0, 'l': 0, 'r': 0})
     fig.update_xaxes(title=None)
-    fig.update_yaxes(zeroline=True, showticklabels=False, zerolinecolor=COLOR.LIGHT_GRAY, title=None)
+    fig.update_yaxes(zeroline=True, showticklabels=False, zerolinecolor=COLOR.LIGHT_GRAY.value, title=None)
 
-    fig.add_scatter(x=df[column], y=[0 for _ in range(len(df))], mode='markers', marker_color=COLOR.STREAMLIT_BLUE)
+    fig.add_scatter(
+        x=df[column],
+        y=[0 for _ in range(len(df))],
+        mode='markers',
+        marker_color=COLOR.STREAMLIT_BLUE.value,
+    )
 
     if extra_points is not None:
-        fig.add_scatter(x=extra_points, y=[0 for _ in range(len(df))], mode='markers', marker_color=COLOR.STREAMLIT)
+        fig.add_scatter(
+            x=extra_points,
+            y=[0 for _ in range(len(df))],
+            mode='markers',
+            marker_color=COLOR.STREAMLIT.value,
+        )
 
     return fig
