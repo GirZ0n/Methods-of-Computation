@@ -16,7 +16,7 @@ def show_sidebar():
             a = int(st.number_input('A:', value=0))
             StateVar.LEFT_BOUNDARY.set(a)
 
-            number_of_nodes = int(st.number_input('Количество узлов:', value=15, min_value=1))
+            number_of_nodes = int(st.number_input('Количество узлов:', value=16, min_value=2))
             StateVar.NUMBER_OF_NODES.set(number_of_nodes)
 
         with right_column:
