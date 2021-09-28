@@ -20,7 +20,7 @@ def show_sidebar():
             StateVar.NUMBER_OF_NODES.set(number_of_nodes)
 
         with right_column:
-            b = int(st.number_input('B:', value=1, min_value=1))
+            b = int(st.number_input('B:', value=1))
             StateVar.RIGHT_BOUNDARY.set(b)
 
             polynomial_degree = int(
