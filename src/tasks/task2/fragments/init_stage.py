@@ -7,6 +7,7 @@ from src.common.methods.nodes_generation.equidistant_nodes_generator import Equi
 from src.common.methods.nodes_generation.random_nodes_generator import RandomNodesGenerator
 from src.common.model.line_segment import LineSegment
 from src.common.utils import plot_on_horizontal_axis
+from src.tasks.task2.common.state_var import StateVar
 
 GENERATORS_MAP = {
     'Случайные узлы': RandomNodesGenerator,
@@ -31,23 +32,29 @@ def show_init_stage():
     generator = GENERATORS_MAP[generator_name]()
 
     table = generator.generate_table(
-        expression=parse_expr(st.session_state.text_expression, transformations=TRANSFORMATIONS),
-        line_segment=LineSegment(st.session_state.left_boundary, st.session_state.right_boundary),
-        number_of_nodes=st.session_state.number_of_nodes,
+        expression=parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS),
+        line_segment=LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()),
+        number_of_nodes=StateVar.NUMBER_OF_NODES.get(),
     )
 
     st.subheader('Узлы')
 
-    st.plotly_chart(plot_on_horizontal_axis(table, 'x', extra_points=[st.session_state.x]), use_container_width=True)
+    st.plotly_chart(
+        plot_on_horizontal_axis(table, 'x', extra_points=[StateVar.INTERPOLATION_POINT.get()]),
+        use_container_width=True,
+    )
     st.dataframe(table.T)
 
     st.subheader('Узлы интерполяции')
     table = _get_interpolation_table(
         table,
-        x=st.session_state.x,
-        polynomial_degree=st.session_state.polynomial_degree,
+        x=StateVar.INTERPOLATION_POINT.get(),
+        polynomial_degree=StateVar.POLYNOMIAL_DEGREE.get(),
     )
-    table['abs'] = abs(table['x'] - st.session_state.x)
+    table['abs'] = abs(table['x'] - StateVar.INTERPOLATION_POINT.get())
     table.reset_index(inplace=True, drop=True)
-    st.plotly_chart(plot_on_horizontal_axis(table, 'x', extra_points=[st.session_state.x]), use_container_width=True)
+    st.plotly_chart(
+        plot_on_horizontal_axis(table, 'x', extra_points=[StateVar.INTERPOLATION_POINT.get()]),
+        use_container_width=True,
+    )
     st.dataframe(table.T)
