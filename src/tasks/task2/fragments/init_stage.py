@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from sympy import parse_expr
 
-from src.common.config import TRANSFORMATIONS
+from src.common.consts import TRANSFORMATIONS
 from src.common.methods.nodes_generation.equidistant_nodes_generator import EquidistantNodesGenerator
 from src.common.methods.nodes_generation.random_nodes_generator import RandomNodesGenerator
 from src.common.model.line_segment import LineSegment
