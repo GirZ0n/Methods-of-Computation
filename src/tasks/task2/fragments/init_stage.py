@@ -3,15 +3,15 @@ import streamlit as st
 from sympy import parse_expr
 
 from src.common.consts import TRANSFORMATIONS
-from src.common.methods.nodes_generation.equidistant_nodes_generator import EquidistantNodesGenerator
-from src.common.methods.nodes_generation.random_nodes_generator import RandomNodesGenerator
+from src.common.methods.table_of_values_generators.equidistant_generator import EquidistantTableOfValuesGenerator
+from src.common.methods.table_of_values_generators.random_generator import RandomTableOfValuesGenerator
 from src.common.model.line_segment import LineSegment
 from src.common.utils import plot_on_horizontal_axis
 from src.tasks.task2.common.state_var import StateVar
 
 GENERATORS_MAP = {
-    'Случайные узлы': RandomNodesGenerator,
-    'Равноотстоящие узлы': EquidistantNodesGenerator,
+    'Случайные узлы': RandomTableOfValuesGenerator,
+    'Равноотстоящие узлы': EquidistantTableOfValuesGenerator,
 }
 
 
@@ -31,7 +31,7 @@ def show_init_stage():
     generator_name = st.selectbox('Выберите метод генерации узлов:', options=GENERATORS_MAP.keys(), index=1)
     generator_class = GENERATORS_MAP[generator_name]
 
-    if issubclass(generator_class, RandomNodesGenerator):
+    if issubclass(generator_class, RandomTableOfValuesGenerator):
         generator = generator_class(StateVar.RANDOM_STATE.get())
     else:
         generator = generator_class()
@@ -39,7 +39,7 @@ def show_init_stage():
     table = generator.generate_table(
         expression=parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS),
         line_segment=LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()),
-        number_of_nodes=StateVar.NUMBER_OF_NODES.get(),
+        number_of_points=StateVar.NUMBER_OF_POINTS.get(),
     )
 
     st.subheader('Узлы')

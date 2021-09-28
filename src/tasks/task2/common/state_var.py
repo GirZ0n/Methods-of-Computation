@@ -9,7 +9,7 @@ class StateVar(Enum):
     TEXT_EXPRESSION = 'text_expression'
     LEFT_BOUNDARY = 'left_boundary'
     RIGHT_BOUNDARY = 'right_boundary'
-    NUMBER_OF_NODES = 'number_of_nodes'
+    NUMBER_OF_POINTS = 'number_of_points'
     POLYNOMIAL_DEGREE = 'polynomial_degree'
     INTERPOLATION_POINT = 'interpolation_point'
     RANDOM_STATE = 'random_state'
