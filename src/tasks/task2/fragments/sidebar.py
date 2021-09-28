@@ -35,3 +35,9 @@ def show_sidebar():
 
         x = st.number_input('Введите точку интерполирования x:', value=0.65)
         StateVar.INTERPOLATION_POINT.set(x)
+
+        with st.expander('Дополнительные параметры'):
+            save_random_state = st.checkbox('Сохранить рандомное состояние')
+
+            if not save_random_state:
+                StateVar.RANDOM_STATE.set(StateVar.RANDOM_STATE.get(default=0) + 1)

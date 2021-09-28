@@ -29,7 +29,12 @@ def show_init_stage():
     st.header('Подготовительный этап')
 
     generator_name = st.selectbox('Выберите метод генерации узлов:', options=GENERATORS_MAP.keys(), index=1)
-    generator = GENERATORS_MAP[generator_name]()
+    generator_class = GENERATORS_MAP[generator_name]
+
+    if issubclass(generator_class, RandomNodesGenerator):
+        generator = generator_class(StateVar.RANDOM_STATE.get())
+    else:
+        generator = generator_class()
 
     table = generator.generate_table(
         expression=parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS),
