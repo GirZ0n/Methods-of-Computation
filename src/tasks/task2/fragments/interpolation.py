@@ -1,3 +1,4 @@
+from functools import partial
 from typing import Type
 
 import numpy as np
@@ -11,23 +12,29 @@ from src.common.model.interpolator import Interpolator
 from src.tasks.task2.common.state_var import StateVar
 
 
-def _show_plot(f, table: pd.DataFrame, approximate_solution: float):
+def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_value: float):
     fig = go.Figure()
 
-    x = np.arange(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get(), 0.01)
+    x = np.arange(
+        min(StateVar.LEFT_BOUNDARY.get(), StateVar.INTERPOLATION_POINT.get()) - 1,
+        max(StateVar.RIGHT_BOUNDARY.get(), StateVar.INTERPOLATION_POINT.get()) + 1,
+        0.01,
+    )
     fig.add_scatter(x=x, y=f(x), name='Искомая функция', marker_color=COLOR.LIGHT_GRAY.value)
+
+    fig.add_scatter(x=x, y=approximate_f(x), name='Полученная функция', marker_color=COLOR.DARK_GRAY.value)
 
     fig.add_scatter(
         x=table['x'],
         y=table['y'],
-        name='Заданные узлы',
+        name='Узлы интерполяции',
         mode='markers',
         marker_color=COLOR.STREAMLIT_BLUE.value,
     )
 
     fig.add_scatter(
         x=[StateVar.INTERPOLATION_POINT.get()],
-        y=[approximate_solution],
+        y=[approximate_value],
         name='Приближённое решение',
         mode='markers',
         marker_color=COLOR.STREAMLIT.value,
@@ -48,11 +55,16 @@ def show_interpolation_results(
     interpolator = interpolator_class()
 
     approximate_value = interpolator.get_approximate_value(StateVar.INTERPOLATION_POINT.get(), table)
-    st.markdown(f'$$P_n(x) = {approximate_value}$$')
+    st.markdown(f'$$P_n^{interpolator_symbol}(x) = {approximate_value}$$')
 
     f = lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS))
     difference = abs(approximate_value - f(StateVar.INTERPOLATION_POINT.get()))
     st.markdown(f'$$|f(x) - P_n^{interpolator_symbol}(x)| = {difference:e}$$')
 
     with st.expander('График'):
-        _show_plot(f, table, approximate_value)
+        _show_plot(
+            f=f,
+            approximate_f=lambda x: interpolator.get_approximate_value(x, table),
+            table=table,
+            approximate_value=approximate_value,
+        )
