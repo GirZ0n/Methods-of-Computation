@@ -1,10 +1,9 @@
-from functools import partial
 from typing import Type
 
 import numpy as np
 import pandas as pd
-import streamlit as st
 import plotly.graph_objects as go
+import streamlit as st
 from sympy import lambdify, parse_expr
 
 from src.common.consts import COLOR, TRANSFORMATIONS
