@@ -22,3 +22,4 @@ class COLOR(Enum):
     STREAMLIT = '#FF2B68'
     STREAMLIT_BLUE = '#5E5698'
     LIGHT_GRAY = '#d3d3d3'
+    DARK_GRAY = '#A9A9A9'
