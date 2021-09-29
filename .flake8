@@ -6,6 +6,7 @@ ignore=D10, # Missing docstrings
        S, # Security
        I00, # flake8-isort
        E402, # Module level import not at top of file.
+       W503, # Line break occurred before a binary operator.
        WPS100, # Forbid blacklisted module names.
        WPS111, # Forbid short variable or module names.
        WPS115, # Require snake_case for naming class attributes.
@@ -24,6 +25,7 @@ ignore=D10, # Missing docstrings
        WPS421, # Forbid calling some built-in functions.
        WPS432, # Forbid magic numbers.
        WPS462, # Forbids direct usage of multiline strings.
+       WPS602, # Forbid @staticmethod decorator.
 
 exclude=venv,
 
