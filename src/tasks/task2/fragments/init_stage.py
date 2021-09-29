@@ -25,7 +25,7 @@ def _get_interpolation_table(
     return table.sort_values(by=[column], key=lambda current_node: abs(current_node - x))[: polynomial_degree + 1]
 
 
-def show_init_stage():
+def show_init_stage() -> pd.DataFrame:
     st.header('Подготовительный этап')
 
     generator_name = st.selectbox('Выберите метод генерации узлов:', options=GENERATORS_MAP.keys(), index=1)
@@ -63,3 +63,5 @@ def show_init_stage():
         use_container_width=True,
     )
     st.dataframe(table.T)
+
+    return table.drop(columns=['abs'])
