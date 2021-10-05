@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from sympy import lambdify, parse_expr
 
+from src.common.config import OUTPUT_PRECISION
 from src.common.consts import COLOR, TRANSFORMATIONS
 from src.common.model.interpolator import Interpolator
 from src.tasks.task2.common.state_var import StateVar
@@ -58,7 +59,7 @@ def show_interpolation_results(
 
     f = lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS))
     difference = abs(approximate_value - f(StateVar.INTERPOLATION_POINT.get()))
-    st.markdown(f'$$|f(x) - P_n^{interpolator_symbol}(x)| = {difference:e}$$')
+    st.markdown(f'$$|f(x) - P_n^{interpolator_symbol}(x)| = {difference:.{OUTPUT_PRECISION}e}$$')
 
     with st.expander('График'):
         _show_plot(

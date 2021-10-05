@@ -21,8 +21,8 @@ class LagrangeInterpolator(Interpolator):
         index: int,
     ) -> float:
         basis_polynomial_value = (
-            reduce(lambda a, b: a * b, self._get_differences(x, points, index))
-            / reduce(lambda a, b: a * b, self._get_differences(points[index], points, index))
+            reduce(lambda a, b: a * b, self._get_differences(x, points, index), 1)
+            / reduce(lambda a, b: a * b, self._get_differences(points[index], points, index), 1)
         )
 
         return basis_polynomial_value * function_value

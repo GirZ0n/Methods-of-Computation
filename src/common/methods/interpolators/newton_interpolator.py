@@ -20,7 +20,7 @@ class NewtonInterpolator(Interpolator):
     def _get_divided_differences(table: pd.DataFrame) -> List[float]:
         divided_differences = []
         current_values = list(table['y'])
-        for i in range(1, len(table)):  # noqa: WPS518
+        for i in range(1, len(table) + 1):  # noqa: WPS518
             next_values = []
             for j, (first, second) in enumerate(zip(current_values, current_values[1:])):
                 next_values.append((second - first) / (table.at[j + i, 'x'] - table.at[j, 'x']))

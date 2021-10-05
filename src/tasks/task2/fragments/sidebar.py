@@ -27,7 +27,7 @@ def show_sidebar():
                 st.number_input(
                     'Степень многочлена:',
                     value=min(7, number_of_points - 1),
-                    min_value=0,
+                    min_value=1,
                     max_value=number_of_points - 1,
                 ),
             )
