@@ -6,5 +6,5 @@ from src.common.model.line_segment import LineSegment
 
 class RootSeparator(ABC):
     @abstractmethod
-    def separate(self, *, f: Callable[[float], float], line_segment: LineSegment) -> List[LineSegment]:
+    def separate(self, *, f: Callable, line_segment: LineSegment) -> List[LineSegment]:
         raise NotImplementedError

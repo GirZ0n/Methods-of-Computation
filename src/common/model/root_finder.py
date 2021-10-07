@@ -60,7 +60,7 @@ class RootFinder(ABC):
     def find(
         self,
         *,
-        derivatives: List[Callable[[float], float]],
+        derivatives: List[Callable],
         line_segment: LineSegment,
         accuracy: float,
         loop_threshold: int = 1000,
