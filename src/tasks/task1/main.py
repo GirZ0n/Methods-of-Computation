@@ -1,6 +1,6 @@
 from typing import List
 
-from sympy import diff, parse_expr
+from sympy import diff, lambdify, parse_expr
 
 from src.common.methods.root_finding.bisection_method import BisectionMethod
 from src.common.methods.root_finding.newton_method import ModifiedNewtonMethod, NewtonMethod
@@ -36,7 +36,9 @@ def print_params():
 
 def separate_roots() -> List[LineSegment]:
     tabulator = Tabulator(N)
-    segments = tabulator.separate(expression=F, line_segment=LINE_SEGMENT)
+
+    f = lambdify('x', F)
+    segments = tabulator.separate(f=f, line_segment=LINE_SEGMENT)
 
     for index, segment in enumerate(segments):
         print(f'{index + 1}. {segment}')
