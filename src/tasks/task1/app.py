@@ -53,8 +53,6 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
 
         st.subheader(f'Отрезок №{number}')
 
-        print(stats.error)
-
         st.markdown(
             f"""
             - Отрезок: ${stats.line_segment}$<br/>
