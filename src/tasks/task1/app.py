@@ -2,7 +2,7 @@ import sys
 from typing import List
 
 import streamlit as st
-from sympy import lambdify, parse_expr
+from sympy import diff, lambdify, parse_expr
 from sympy.parsing.sympy_parser import (
     convert_xor,
     function_exponentiation,
@@ -45,10 +45,15 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
     root_finder = METHOD_NAME_TO_ROOT_FINDER[method_name]
 
     for number, segment in enumerate(segments, start=1):
-        root_finder.find(expression=expression, line_segment=segment, accuracy=accuracy)
+        f = lambdify('x', expression)
+        df = lambdify('x', diff(expression))
+
+        root_finder.find(derivatives=[f, df], line_segment=segment, accuracy=accuracy)
         stats = root_finder.stats
 
         st.subheader(f'Отрезок №{number}')
+
+        print(stats.error)
 
         st.markdown(
             f"""

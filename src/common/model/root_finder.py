@@ -1,6 +1,6 @@
 import textwrap
 from abc import ABC, abstractmethod
-from typing import List, Optional, Union
+from typing import Callable, List, Optional, Union
 
 from src.common.config import OUTPUT_PRECISION
 from src.common.model.line_segment import LineSegment
@@ -60,8 +60,7 @@ class RootFinder(ABC):
     def find(
         self,
         *,
-        expression,
-        variable: str = 'x',
+        derivatives: List[Callable[[float], float]],
         line_segment: LineSegment,
         accuracy: float,
         loop_threshold: int = 1000,

@@ -1,7 +1,5 @@
 from typing import Callable, List
 
-from sympy import lambdify
-
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_separator import RootSeparator
 

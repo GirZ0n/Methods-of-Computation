@@ -1,6 +1,4 @@
-from typing import Optional
-
-from sympy import lambdify
+from typing import Callable, List, Optional
 
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_finder import RootFinder, RootFinderStats
@@ -15,15 +13,14 @@ class BisectionMethod(RootFinder):
     def find(
         self,
         *,
-        expression,
-        variable: str = 'x',
+        derivatives: List[Callable[[float], float]],
         line_segment: LineSegment,
         accuracy: float,
         loop_threshold: int = 1000,
     ) -> Optional[float]:
         self.stats = None
 
-        f = lambdify(variable, expression)
+        f = derivatives[0]
 
         current_segment = line_segment
         current_step = 0
