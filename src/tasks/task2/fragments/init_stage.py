@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from sympy import parse_expr
+from sympy import lambdify, parse_expr
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.table_of_values_generators.equidistant_generator import EquidistantTableOfValuesGenerator
@@ -36,8 +36,9 @@ def show_init_stage() -> pd.DataFrame:
     else:
         generator = generator_class()
 
+    f = lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS))
     table = generator.generate_table(
-        expression=parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS),
+        f=f,
         line_segment=LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()),
         number_of_points=StateVar.NUMBER_OF_POINTS.get(),
     )

@@ -1,6 +1,4 @@
-from typing import List
-
-from sympy import lambdify
+from typing import Callable, List
 
 from src.common.model.line_segment import LineSegment
 from src.common.model.root_separator import RootSeparator
@@ -12,8 +10,7 @@ class Tabulator(RootSeparator):
     def __init__(self, number_of_parts: int):
         self.number_of_parts = number_of_parts
 
-    def separate(self, *, expression, variable: str = 'x', line_segment: LineSegment) -> List[LineSegment]:
-        f = lambdify(variable, expression)
+    def separate(self, *, f: Callable, line_segment: LineSegment) -> List[LineSegment]:
         segments = line_segment.split_into_segments(self.number_of_parts)
 
         found_segments = []

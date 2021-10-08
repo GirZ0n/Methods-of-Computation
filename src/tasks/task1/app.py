@@ -2,7 +2,7 @@ import sys
 from typing import List
 
 import streamlit as st
-from sympy import parse_expr
+from sympy import diff, lambdify, parse_expr
 from sympy.parsing.sympy_parser import (
     convert_xor,
     function_exponentiation,
@@ -31,7 +31,9 @@ TRANSFORMATIONS = standard_transformations + (
 
 def root_separation(*, number_of_parts: int, expression, line_segment: LineSegment) -> List[LineSegment]:
     tabulator = Tabulator(number_of_parts)
-    segments = tabulator.separate(expression=expression, line_segment=line_segment)
+
+    f = lambdify('x', expression)
+    segments = tabulator.separate(f=f, line_segment=line_segment)
 
     for index, segment in enumerate(segments):
         st.markdown(f'{index + 1}. ${segment}$')
@@ -43,7 +45,10 @@ def root_find(*, segments: List[LineSegment], method_name: str, expression, accu
     root_finder = METHOD_NAME_TO_ROOT_FINDER[method_name]
 
     for number, segment in enumerate(segments, start=1):
-        root_finder.find(expression=expression, line_segment=segment, accuracy=accuracy)
+        f = lambdify('x', expression)
+        df = lambdify('x', diff(expression))
+
+        root_finder.find(derivatives=[f, df], line_segment=segment, accuracy=accuracy)
         stats = root_finder.stats
 
         st.subheader(f'Отрезок №{number}')
