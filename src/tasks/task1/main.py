@@ -64,8 +64,7 @@ def main():
         print_header(method_name)
 
         f = lambdify('x', F)
-        diff_expression = diff(F)
-        df = lambdify('x', diff_expression)
+        df = lambdify('x', diff(F))
 
         for segment in segments:
             root_finder.find(derivatives=[f, df], line_segment=segment, accuracy=ACCURACY)
