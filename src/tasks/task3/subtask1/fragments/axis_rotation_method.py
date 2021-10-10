@@ -93,7 +93,11 @@ def show_axis_rotation_method(table: pd.DataFrame):
     table.drop(columns=['abs'])
     table = table.rename(columns={'x': 'y', 'y': 'x'})
 
-    interpolator_names = st.multiselect('Выберите интерполяционный метод:', options=INTERPOLATOR_MAP.keys(), key='arm')
+    interpolator_names = st.multiselect(
+        'Выберите интерполяционный метод:',
+        options=INTERPOLATOR_MAP.keys(),
+        key='interpolator_names',
+    )
     for interpolator_name in interpolator_names:
         st.subheader(interpolator_name)
 
