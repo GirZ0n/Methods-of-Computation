@@ -139,8 +139,9 @@ def show_nonlinear_equation_method(table: pd.DataFrame):
             with st.expander('График:'):
                 _show_plot(
                     f=f,
-                    approximate_f=lambda x: _equation(x, interpolator, interpolation_table)
-                    + StateVar.INTERPOLATION_POINT.get(),
+                    approximate_f=(
+                        lambda x: _equation(x, interpolator, interpolation_table) + StateVar.INTERPOLATION_POINT.get()
+                    ),
                     table=interpolation_table,
                     approximate_arguments=arguments,
                 )
