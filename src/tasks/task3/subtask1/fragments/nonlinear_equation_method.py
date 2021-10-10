@@ -58,14 +58,14 @@ def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_arguments: 
     fig.add_scatter(
         x=x,
         y=f(x),
-        name='Искомая функция: f(x)',
+        name='Искомая функция',
         marker_color=COLOR.LIGHT_GRAY.value,
     )
 
     fig.add_scatter(
         x=x,
         y=approximate_f(x),
-        name='Полученная функция: P(x)',
+        name='Полученная функция',
         marker_color=COLOR.DARK_GRAY.value,
     )
 
@@ -84,6 +84,9 @@ def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_arguments: 
         mode='markers',
         marker_color=COLOR.STREAMLIT.value,
     )
+
+    fig.update_xaxes(title='x')
+    fig.update_yaxes(title='y')
 
     st.plotly_chart(fig, use_container_width=True)
 
