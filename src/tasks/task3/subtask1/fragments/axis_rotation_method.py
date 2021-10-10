@@ -27,7 +27,7 @@ def _get_interpolation_table(
     return table.sort_values(by=[column], key=lambda current_node: abs(current_node - point))[: polynomial_degree + 1]
 
 
-def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_value: float):
+def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_point: float):
     fig = go.Figure()
 
     x = np.arange(
@@ -55,7 +55,7 @@ def _show_plot(*, f, approximate_f, table: pd.DataFrame, approximate_value: floa
 
     fig.add_scatter(
         x=[StateVar.INTERPOLATION_POINT.get()],
-        y=[approximate_value],
+        y=[approximate_point],
         name='Приближённый аргумент',
         mode='markers',
         marker_color=COLOR.STREAMLIT.value,
@@ -103,11 +103,11 @@ def show_axis_rotation_method(table: pd.DataFrame):
 
         interpolator = INTERPOLATOR_MAP[interpolator_name]
 
-        approximate_value = interpolator.get_approximate_value(StateVar.INTERPOLATION_POINT.get(), table)
-        st.markdown(f'$$Q_n(y) = {approximate_value}$$')
+        approximate_argument = interpolator.get_approximate_value(StateVar.INTERPOLATION_POINT.get(), table)
+        st.markdown(f'$$Q_n(y) = {approximate_argument}$$')
 
         f = lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS))
-        difference = abs(f(approximate_value) - StateVar.INTERPOLATION_POINT.get())
+        difference = abs(f(approximate_argument) - StateVar.INTERPOLATION_POINT.get())
         st.markdown(f'$$|f(Q(y)) - y| = {difference:.{OUTPUT_PRECISION}e}$$')
 
         with st.expander('График'):
@@ -115,5 +115,5 @@ def show_axis_rotation_method(table: pd.DataFrame):
                 f=f,
                 approximate_f=lambda y: interpolator.get_approximate_value(y, table),
                 table=table,
-                approximate_value=approximate_value,
+                approximate_point=approximate_argument,
             )
