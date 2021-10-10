@@ -10,7 +10,7 @@ def show_sidebar():
         text_expression = st.text_input('Выражение:', value='sin(x) - x^2 / 2')
         StateVar.TEXT_EXPRESSION.set(text_expression)
 
-        a = st.number_input('A:', value=0.0)
+        a = st.number_input('A:', value=float(0))
         StateVar.LEFT_BOUNDARY.set(a)
 
         b = st.number_input('B:', value=1.0)
