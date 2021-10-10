@@ -100,7 +100,7 @@ def show_nonlinear_equation_method(table: pd.DataFrame):
     accuracy = float(st.number_input('Точность:', value=1e-8, step=1e-1, format='%e'))
 
     f = lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS))
-    line_segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())
+    line_segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get() + 0.01)
 
     for interpolator_name in interpolator_names:
         interpolator = INTERPOLATOR_MAP[interpolator_name]
