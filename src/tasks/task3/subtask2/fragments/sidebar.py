@@ -16,7 +16,7 @@ def show_sidebar():
         number_of_points = int(st.number_input('Количество значений:', value=8, min_value=3))
         StateVar.NUMBER_OF_POINTS.set(number_of_points)
 
-        step = st.number_input('Шаг:', value=1e-4, step=1e-1, format='%e')
+        step = st.number_input('Шаг:', value=1e-4, step=1e-4, format='%e')
         StateVar.STEP.set(step)
 
         with st.expander('Дополнительные параметры'):
