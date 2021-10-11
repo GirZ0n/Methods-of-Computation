@@ -5,6 +5,8 @@ from src.tasks.task3.subtask2.common.state_var import StateVar
 
 def show_sidebar():
     with st.sidebar:
+        st.header('Параметры задачи')
+
         text_expression = st.text_input('Выражение:', value='exp(3x)')
         StateVar.TEXT_EXPRESSION.set(text_expression)
 
