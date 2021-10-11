@@ -12,4 +12,4 @@ class SecondDerivativeFinder(NumericalDifferentiator):
         for left_value, middle_value, right_value in zip(function_values, function_values[1:], function_values[2:]):
             derivatives.append((right_value - 2 * middle_value + left_value) / (step ** 2))
 
-        return pd.Series([None, *derivatives, None])
+        return pd.Series([None, *derivatives, None], name='y')
