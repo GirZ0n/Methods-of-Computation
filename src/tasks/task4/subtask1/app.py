@@ -37,9 +37,8 @@ if __name__ == '__main__':
 
     f = np.vectorize(lambdify('x', parse_expr(StateVar.TEXT_EXPRESSION.get(), transformations=TRANSFORMATIONS)))
 
-    segments = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()).split_into_segments(
-        StateVar.NUMBER_OF_SEGMENTS.get()
-    )
+    segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())
+    segments = segment.split_into_segments(StateVar.NUMBER_OF_SEGMENTS.get())
 
     st.header('Приближённые значения')
 
