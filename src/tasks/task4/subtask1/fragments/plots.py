@@ -51,14 +51,14 @@ def _plot_function(f: Callable, segment: LineSegment) -> go.Figure:
         range=[
             min(x_left),
             max(x_right),
-        ]
+        ],
     )
 
     fig.update_yaxes(
         range=[
             min(min(np.concatenate((y_left, y_main, y_right), axis=None)), 0) - 1,
             max(max(np.concatenate((y_left, y_main, y_right), axis=None)), 0) + 1,
-        ]
+        ],
     )
 
     return fig
@@ -70,19 +70,19 @@ def _plot_points(fig: go.Figure, f: Callable, x: List[float]) -> None:
         y=list(map(f, x)),
         mode='markers',
         legendgroup='area',
-        hovertemplate=r'(%{x}, %{y})<extra></extra>',
+        hovertemplate='(%{x}, %{y})<extra></extra>',
         showlegend=False,
         marker_color=COLOR.STREAMLIT.value,
     )
 
 
-def show_polygon(
+def show_polygon(  # noqa: WPS231
     f: Callable,
     segments: List[LineSegment],
     method_type: Literal['left', 'right', 'center', 'trapezoid'],
 ) -> None:
-    min_x = min(map(lambda segment: segment.left, segments))
-    max_x = max(map(lambda segment: segment.right, segments))
+    min_x = min(map(lambda s: s.left, segments))
+    max_x = max(map(lambda s: s.right, segments))
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
@@ -115,14 +115,14 @@ def show_polygon(
         )
 
     if method_type == 'left':
-        points = list(map(lambda segment: segment.left, segments))
+        points = list(map(lambda s: s.left, segments))
     elif method_type == 'right':
-        points = list(map(lambda segment: segment.right, segments))
+        points = list(map(lambda s: s.right, segments))
     elif method_type == 'trapezoid':
-        points = list(map(lambda segment: segment.left, segments))
-        points += list(map(lambda segment: segment.right, segments))
+        points = list(map(lambda s: s.left, segments))
+        points += list(map(lambda s: s.right, segments))
     else:
-        points = list(map(lambda segment: segment.midpoint, segments))
+        points = list(map(lambda s: s.midpoint, segments))
 
     _plot_points(fig, f, points)
 
@@ -132,8 +132,8 @@ def show_polygon(
 
 
 def show_quadratic_simpson(f: Callable, segments: List[LineSegment]) -> None:
-    min_x = min(map(lambda segment: segment.left, segments))
-    max_x = max(map(lambda segment: segment.right, segments))
+    min_x = min(map(lambda s: s.left, segments))
+    max_x = max(map(lambda s: s.right, segments))
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
@@ -182,8 +182,8 @@ def show_quadratic_simpson(f: Callable, segments: List[LineSegment]) -> None:
 
 
 def show_cubic_simpson(f: Callable, segments: List[LineSegment]) -> None:
-    min_x = min(map(lambda segment: segment.left, segments))
-    max_x = max(map(lambda segment: segment.right, segments))
+    min_x = min(map(lambda s: s.left, segments))
+    max_x = max(map(lambda s: s.right, segments))
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
@@ -193,8 +193,8 @@ def show_cubic_simpson(f: Callable, segments: List[LineSegment]) -> None:
             [segment.left, segment.left + segment.length / 3, segment.right - segment.length / 3, segment.right],
         )
 
-    for index, (left, middle_left, middle_right, right) in enumerate(
-        zip(points[::4], points[1::4], points[2::4], points[3::4])
+    for index, (left, middle_left, middle_right, right) in enumerate(  # noqa: WPS352
+        zip(points[::4], points[1::4], points[2::4], points[3::4]),
     ):
         z = np.polyfit(
             x=[left, middle_left, middle_right, right],

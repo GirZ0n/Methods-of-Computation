@@ -1,6 +1,6 @@
 import numpy as np
 import streamlit as st
-from sympy import lambdify, latex, parse_expr
+from sympy import lambdify, parse_expr
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.model.line_segment import LineSegment
@@ -10,9 +10,9 @@ from src.tasks.task4.subtask1.fragments.sidebar import show_sidebar
 
 
 def show_result(precise_solution: float, approximate_solution: float):
-    st.markdown(fr"$I_{{т}} = {precise_solution}$")
-    st.markdown(fr"$I_{{п}} = {precise_solution}$")
-    st.markdown(fr"$\left| I_{{т}} - I_{{п}} \right| = {abs(precise_solution - approximate_solution)}$")
+    st.markdown(f'$I_{{т}} = {precise_solution}$')
+    st.markdown(f'$I_{{п}} = {precise_solution}$')
+    st.markdown(fr'$\left| I_{{т}} - I_{{п}} \right| = {abs(precise_solution - approximate_solution)}$')
 
 
 if __name__ == '__main__':
