@@ -39,49 +39,49 @@ if __name__ == '__main__':
     left_column, right_column = st.columns(2)
 
     with left_column:
-        st.subheader('Метод левых прямоугольников')
+        st.subheader('Формула левых прямоугольников')
         show_result(0, 0)
 
     with right_column:
-        st.subheader('Метод правых прямоугольников')
+        st.subheader('Формула правых прямоугольников')
         show_result(0, 0)
 
     left_column, right_column = st.columns(2)
 
     with left_column:
-        st.subheader('Метод средних прямоугольников')
+        st.subheader('Формула средних прямоугольников')
         show_result(0, 0)
 
     with right_column:
-        st.subheader('Метод трапеций')
+        st.subheader('Формула трапеций')
         show_result(0, 0)
 
     left_column, right_column = st.columns(2)
 
     with left_column:
-        st.subheader(r'Метод Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
+        st.subheader(r'Формула Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
         show_result(0, 0)
 
     with right_column:
-        st.subheader(r'Метод Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
+        st.subheader(r'Формула Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
         show_result(0, 0)
 
     st.header('Визуализация методов')
 
-    st.subheader('Метод левых прямоугольников')
+    st.subheader('Формула левых прямоугольников')
     show_polygon(f, segments, 'left')
 
-    st.subheader('Метод правых прямоугольников')
+    st.subheader('Формула правых прямоугольников')
     show_polygon(f, segments, 'right')
 
-    st.subheader('Метод средних прямоугольников')
+    st.subheader('Формула средних прямоугольников')
     show_polygon(f, segments, 'center')
 
-    st.subheader('Метод трапеций')
+    st.subheader('Формула трапеций')
     show_polygon(f, segments, 'trapezoid')
 
-    st.subheader(r'Метод Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
+    st.subheader(r'Формула Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
     show_quadratic_simpson(f, segments)
 
-    st.subheader(r'Метод Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
+    st.subheader(r'Формула Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
     show_cubic_simpson(f, segments)
