@@ -10,15 +10,9 @@ from src.tasks.task4.subtask1.fragments.sidebar import show_sidebar
 
 
 def show_result(precise_solution: float, approximate_solution: float):
-    # st.markdown(
-    #     fr"""
-    #     $\underbrace{{ \int_b^a f(x) dx }}_{{ I_p }}
-    #     \approx \underbrace{{ \vphantom{{ \int_b^a f(x) }} {approximate_solution} }}_{{ I_a }}$
-    #     """
-    # )
-
-    st.markdown(fr'$\displaystyle I_p = {precise_solution} = \int_{{{StateVar.LEFT_BOUNDARY.get()}}}^{{{StateVar.RIGHT_BOUNDARY.get()}}} f(x) dx \approx {approximate_solution} = I_a$')
-    st.markdown(fr"$\left| I_p - I_a \right| = {abs(precise_solution - approximate_solution)}$")
+    st.markdown(fr"$I_{{т}} = {precise_solution}$")
+    st.markdown(fr"$I_{{п}} = {precise_solution}$")
+    st.markdown(fr"$\left| I_{{т}} - I_{{п}} \right| = {abs(precise_solution - approximate_solution)}$")
 
 
 if __name__ == '__main__':
