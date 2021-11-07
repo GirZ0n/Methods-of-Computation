@@ -10,15 +10,15 @@ from src.common.model.line_segment import LineSegment
 
 
 def _plot_function(f: Callable, segment: LineSegment) -> go.Figure:
-    x_main = np.arange(segment.left, segment.right + PLOT_STEP, PLOT_STEP)
+    x_main = np.linspace(segment.left, segment.right, int(segment.length // PLOT_STEP))
     y_main = f(x_main)
 
     h = (segment.right - segment.left) / 4
 
-    x_left = np.arange(segment.left - h, segment.left + PLOT_STEP, PLOT_STEP)
+    x_left = np.linspace(segment.left - h, segment.left, int(h // PLOT_STEP))
     y_left = f(x_left)
 
-    x_right = np.arange(segment.right, segment.right + h + PLOT_STEP, PLOT_STEP)
+    x_right = np.linspace(segment.right, segment.right + h, int(h // PLOT_STEP))
     y_right = f(x_right)
 
     fig = go.Figure()
@@ -144,7 +144,7 @@ def show_quadratic_simpson(f: Callable, segments: List[LineSegment]) -> None:
     for index, (left, middle, right) in enumerate(zip(points[::3], points[1::3], points[2::3])):
         z = np.polyfit([left, middle, right], [f(left), f(middle), f(right)], 2)
         parabola = np.poly1d(z)
-        x = np.arange(left, right + PLOT_STEP, PLOT_STEP)
+        x = np.linspace(left, right, int((right - left) // PLOT_STEP))
         fig.add_scatter(
             x=x,
             y=parabola(x),
@@ -202,7 +202,7 @@ def show_cubic_simpson(f: Callable, segments: List[LineSegment]) -> None:
             deg=3,
         )
         cubic_parabola = np.poly1d(z)
-        x = np.arange(left, right + PLOT_STEP, PLOT_STEP)
+        x = np.linspace(left, right, int((right - left) // PLOT_STEP))
         fig.add_scatter(
             x=x,
             y=cubic_parabola(x),
