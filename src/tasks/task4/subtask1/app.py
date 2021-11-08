@@ -1,6 +1,11 @@
+import sys
+
 import numpy as np
 import streamlit as st
 from sympy import integrate, lambdify, parse_expr
+
+sys.path.append('')
+sys.path.append('../../..')
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.rectangle_methods import (
