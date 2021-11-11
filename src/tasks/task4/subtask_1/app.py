@@ -1,11 +1,6 @@
-import sys
-
 import numpy as np
 import streamlit as st
 from sympy import integrate, lambdify, parse_expr
-
-sys.path.append('')
-sys.path.append('../..')
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.rectangle_methods import (
@@ -17,19 +12,17 @@ from src.common.methods.numerical_integration.rectangle_methods import (
 from src.common.methods.numerical_integration.simpson_methods import FirstSimpsonMethod, SecondSimpsonMethod
 from src.common.model.line_segment import LineSegment
 from src.tasks.task4.common.state_var import StateVar
-from src.tasks.task4.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
-from src.tasks.task4.fragments.sidebar import show_sidebar
+from src.tasks.task4.subtask_1.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
+from src.tasks.task4.subtask_1.fragments.sidebar import show_sidebar
 
 
-def show_result(precise_solution: float, approximate_solution: float):
+def _show_result(precise_solution: float, approximate_solution: float):
     st.markdown(f'$I_{{т}} = {precise_solution}$')
     st.markdown(f'$I_{{п}} = {approximate_solution}$')
     st.markdown(fr'$\left| I_{{т}} - I_{{п}} \right| = {abs(precise_solution - approximate_solution)}$')
 
 
-if __name__ == '__main__':
-    st.set_page_config(layout='wide')
-
+def show_quadrature_formulas() -> None:
     st.markdown(
         """
         <h1 style='text-align: center'>
@@ -60,13 +53,13 @@ if __name__ == '__main__':
         st.subheader('Формула левых прямоугольников')
         method = LeftRectangleMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     with right_column:
         st.subheader('Формула правых прямоугольников')
         method = RightRectangleMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     left_column, right_column = st.columns(2)
 
@@ -74,13 +67,13 @@ if __name__ == '__main__':
         st.subheader('Формула средних прямоугольников')
         method = MiddleRectangleMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     with right_column:
         st.subheader('Формула трапеций')
         method = TrapezoidalMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     left_column, right_column = st.columns(2)
 
@@ -88,18 +81,20 @@ if __name__ == '__main__':
         st.subheader(r'Формула Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
         method = FirstSimpsonMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     with right_column:
         st.subheader(r'Формула Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
         method = SecondSimpsonMethod()
         approximate_solution = method.integrate(f=gf, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
-        show_result(precise_solution, approximate_solution)
+        _show_result(precise_solution, approximate_solution)
 
     st.header('Визуализация методов')
 
     if StateVar.NUMBER_OF_SEGMENTS.get() > 50:
-        st.warning('Количество частей слишком велико для визуализации')
+        st.warning('Количество частей слишком велико для визуализации (максимум: 50)')
+    elif segment.length > 100:
+        st.warning('Отрезок слишком длинный для визуализации (максимум: 100).')
     else:
         segments = segment.split_into_segments(StateVar.NUMBER_OF_SEGMENTS.get())
 
@@ -120,3 +115,8 @@ if __name__ == '__main__':
 
         st.subheader(r'Формула Симпсона $$(\left. 3 \middle/ 8 \right.)$$')
         show_cubic_simpson(gf, segments)
+
+
+if __name__ == '__main__':
+    st.set_page_config(layout='wide')
+    show_quadrature_formulas()
