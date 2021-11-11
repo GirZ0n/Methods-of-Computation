@@ -1,14 +1,17 @@
 import streamlit as st
 
-from src.tasks.task4.subtask1.common.state_var import StateVar
+from src.tasks.task4.common.state_var import StateVar
 
 
 def show_sidebar():
     with st.sidebar:
         st.title('Параметры задачи')
 
-        text_expression = st.text_input('Выражение:', value='x^3 + x^2 + 1')
-        StateVar.TEXT_EXPRESSION.set(text_expression)
+        function = st.text_input('f(x):', value='x^3 + x^2 + 1')
+        StateVar.FUNCTION.set(function)
+
+        weight_function = st.text_input('g(x):', value='1')
+        StateVar.WEIGHT_FUNCTION.set(weight_function)
 
         a = st.number_input('A:', value=float(1))
         StateVar.LEFT_BOUNDARY.set(a)
