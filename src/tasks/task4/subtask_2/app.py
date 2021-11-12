@@ -11,7 +11,7 @@ from src.common.methods.numerical_integration.rectangle_methods import (
 )
 from src.common.methods.numerical_integration.simpson_methods import FirstSimpsonMethod, SecondSimpsonMethod
 from src.common.model.line_segment import LineSegment
-from src.tasks.task4.common.state_var import StateVar
+from src.tasks.task4.subtask_2.common import StateVar
 from src.tasks.task4.subtask_2.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
 from src.tasks.task4.subtask_2.fragments.sidebar import show_sidebar
 
