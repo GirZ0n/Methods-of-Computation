@@ -5,6 +5,8 @@ from src.common.model.numerical_integrator import NumericalIntegrator
 
 
 class FirstSimpsonMethod(NumericalIntegrator):
+    accuracy_degree = 3
+
     def integrate(self, *, f: Callable, segment: LineSegment, n: int) -> float:
         points = segment.split_into_points(n)
         return sum(
@@ -14,6 +16,8 @@ class FirstSimpsonMethod(NumericalIntegrator):
 
 
 class SecondSimpsonMethod(NumericalIntegrator):
+    accuracy_degree = 3
+
     def integrate(self, *, f: Callable, segment: LineSegment, n: int) -> float:
         points = segment.split_into_points(n)
         return sum(
