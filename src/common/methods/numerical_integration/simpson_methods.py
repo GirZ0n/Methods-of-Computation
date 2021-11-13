@@ -26,3 +26,18 @@ class SecondSimpsonMethod(NumericalIntegrator):
             / 8
             for x_left, x_right in zip(points, points[1:])
         )
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+class OptimizedSimpsonMethod(NumericalIntegrator):
+    accuracy_degree = 3
+
+    def integrate(self, *, f: Callable, segment: LineSegment, n: int, **kwargs) -> float:
+        inner_sum = kwargs.pop('inner_sum')
+        middle_sum = kwargs.pop('middle_sum')
+        boundary_sum = kwargs.pop('boundary_sum')
+        h = segment.length / n
+
+        return h / 6 * (boundary_sum + 2 * inner_sum + 4 * middle_sum)
