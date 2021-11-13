@@ -7,7 +7,6 @@ import streamlit as st
 @unique
 class StateVar(Enum):
     FUNCTION = 'function'
-    WEIGHT_FUNCTION = 'weight_function'
     LEFT_BOUNDARY = 'left_boundary'
     RIGHT_BOUNDARY = 'right_boundary'
     NUMBER_OF_SEGMENTS = 'number_of_segments'

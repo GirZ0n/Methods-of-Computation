@@ -10,9 +10,6 @@ def show_sidebar():
         function = st.text_input('f(x):', value='x^3 + x^2 + 1')
         StateVar.FUNCTION.set(function)
 
-        weight_function = st.text_input('g(x):', value='1')
-        StateVar.WEIGHT_FUNCTION.set(weight_function)
-
         a = st.number_input('A:', value=float(1))
         StateVar.LEFT_BOUNDARY.set(a)
 
