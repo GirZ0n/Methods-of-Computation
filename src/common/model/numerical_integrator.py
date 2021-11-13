@@ -11,5 +11,5 @@ class NumericalIntegrator(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def integrate(self, *, f: Callable, segments: LineSegment, n: int) -> float:
+    def integrate(self, *, f: Callable, segments: LineSegment, n: int, **kwargs) -> float:
         raise NotImplementedError
