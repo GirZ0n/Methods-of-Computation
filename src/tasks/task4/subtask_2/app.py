@@ -1,15 +1,20 @@
+from typing import Callable
+
 import numpy as np
 import streamlit as st
 from sympy import integrate, lambdify, parse_expr
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.rectangle_methods import (
-    LeftRectangleMethod,
-    MiddleRectangleMethod,
-    RightRectangleMethod,
-    TrapezoidalMethod,
+    OptimizedLeftRectangleMethod,
+    OptimizedMiddleRectangleMethod,
+    OptimizedRightRectangleMethod,
+    OptimizedTrapezoidalMethod,
 )
-from src.common.methods.numerical_integration.simpson_methods import FirstSimpsonMethod, SecondSimpsonMethod
+from src.common.methods.numerical_integration.simpson_methods import (
+    OptimizedSimpsonMethod,
+    SecondSimpsonMethod,
+)
 from src.common.model.line_segment import LineSegment
 from src.tasks.task4.subtask_2.common.state_var import StateVar
 from src.tasks.task4.subtask_2.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
@@ -20,6 +25,23 @@ def _show_result(precise_solution: float, approximate_solution: float):
     st.markdown(f'$I_{{точн.}} = {precise_solution}$')
     st.markdown(f'$I_{{прибл.}} = {approximate_solution}$')
     st.markdown(fr'$\left| I_{{точн.}} - I_{{прибл.}} \right| = {abs(precise_solution - approximate_solution)}$')
+
+
+def _calculate_boundary_sum(f: Callable, segment: LineSegment) -> float:
+    return f(segment.left) + f(segment.right)
+
+
+def _calculate_inner_sum(f: Callable, segment: LineSegment) -> float:
+    points = segment.split_into_points(StateVar.NUMBER_OF_SEGMENTS.get())
+    points.pop(0)
+    points.pop(-1)
+
+    return sum(f(point) for point in points)
+
+
+def _calculate_middle_sum(f: Callable, segment: LineSegment) -> float:
+    segments = segment.split_into_segments(StateVar.NUMBER_OF_SEGMENTS.get())
+    return sum(f(curr_segment.midpoint) for curr_segment in segments)
 
 
 def show_quadrature_formulas() -> None:
@@ -42,42 +64,74 @@ def show_quadrature_formulas() -> None:
 
     segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())
 
+    boundary_sum = _calculate_boundary_sum(f, segment)
+    inner_sum = _calculate_inner_sum(f, segment)
+    middle_sum = _calculate_middle_sum(f, segment)
+
     st.header('Приближённые значения')
 
     left_column, right_column = st.columns(2)
 
     with left_column:
         st.subheader('Формула левых прямоугольников')
-        method = LeftRectangleMethod()
-        approximate_solution = method.integrate(f=f, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
+        method = OptimizedLeftRectangleMethod()
+        approximate_solution = method.integrate(
+            f=f,
+            segment=segment,
+            n=StateVar.NUMBER_OF_SEGMENTS.get(),
+            inner_sum=inner_sum,
+        )
         _show_result(precise_solution, approximate_solution)
 
     with right_column:
         st.subheader('Формула правых прямоугольников')
-        method = RightRectangleMethod()
-        approximate_solution = method.integrate(f=f, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
+        method = OptimizedRightRectangleMethod()
+        approximate_solution = method.integrate(
+            f=f,
+            segment=segment,
+            n=StateVar.NUMBER_OF_SEGMENTS.get(),
+            inner_sum=inner_sum,
+        )
         _show_result(precise_solution, approximate_solution)
 
     left_column, right_column = st.columns(2)
 
     with left_column:
         st.subheader('Формула средних прямоугольников')
-        method = MiddleRectangleMethod()
-        approximate_solution = method.integrate(f=f, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
+        method = OptimizedMiddleRectangleMethod()
+        approximate_solution = method.integrate(
+            f=f,
+            segment=segment,
+            n=StateVar.NUMBER_OF_SEGMENTS.get(),
+            middle_sum=middle_sum,
+        )
         _show_result(precise_solution, approximate_solution)
 
     with right_column:
         st.subheader('Формула трапеций')
-        method = TrapezoidalMethod()
-        approximate_solution = method.integrate(f=f, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
+        method = OptimizedTrapezoidalMethod()
+        approximate_solution = method.integrate(
+            f=f,
+            segment=segment,
+            n=StateVar.NUMBER_OF_SEGMENTS.get(),
+            boundary_sum=boundary_sum,
+            inner_sum=inner_sum,
+        )
         _show_result(precise_solution, approximate_solution)
 
     left_column, right_column = st.columns(2)
 
     with left_column:
         st.subheader(r'Формула Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
-        method = FirstSimpsonMethod()
-        approximate_solution = method.integrate(f=f, segment=segment, n=StateVar.NUMBER_OF_SEGMENTS.get())
+        method = OptimizedSimpsonMethod()
+        approximate_solution = method.integrate(
+            f=f,
+            segment=segment,
+            n=StateVar.NUMBER_OF_SEGMENTS.get(),
+            inner_sum=inner_sum,
+            boundary_sum=boundary_sum,
+            middle_sum=middle_sum,
+        )
         _show_result(precise_solution, approximate_solution)
 
     with right_column:
