@@ -1,10 +1,9 @@
-from math import exp
 from typing import Callable, Dict, Type
 
 import numpy as np
 import streamlit as st
 from sympy import integrate, lambdify
-from sympy.abc import x
+from sympy.abc import x  # noqa: WPS347
 from sympy.functions import exp
 
 from src.common.methods.numerical_integration.rectangle_methods import (
