@@ -31,7 +31,7 @@ class SecondSimpsonMethod(NumericalIntegrator):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-class OptimizedSimpsonMethod(NumericalIntegrator):
+class OptimizedFirstSimpsonMethod(NumericalIntegrator):
     accuracy_degree = 3
 
     def integrate(self, *, f: Callable, segment: LineSegment, n: int, **kwargs) -> float:
@@ -41,3 +41,22 @@ class OptimizedSimpsonMethod(NumericalIntegrator):
         h = segment.length / n
 
         return h / 6 * (boundary_sum + 2 * inner_sum + 4 * middle_sum)
+
+
+class OptimizedSecondSimpsonMethod(NumericalIntegrator):
+    accuracy_degree = 3
+
+    def integrate(self, *, f: Callable, segment: LineSegment, n: int, **kwargs) -> float:
+        points = segment.split_into_points(3 * n)
+
+        boundary_sum = f(points.pop(0)) + f(points.pop(-1))
+
+        third_sum = 0
+        if len(points[2::3]) != 0:
+            third_sum = sum(f(points[2::3]))
+
+        del points[2::3]
+        non_third_sum = sum(f(points))
+
+        h = segment.length / (3 * n)
+        return (boundary_sum + 3 * non_third_sum + 2 * third_sum) * 3 * h / 8

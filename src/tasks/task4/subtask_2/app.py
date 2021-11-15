@@ -12,7 +12,7 @@ from src.common.methods.numerical_integration.rectangle_methods import (
     OptimizedTrapezoidalMethod,
 )
 from src.common.methods.numerical_integration.simpson_methods import (
-    OptimizedSimpsonMethod,
+    OptimizedFirstSimpsonMethod,
     SecondSimpsonMethod,
 )
 from src.common.model.line_segment import LineSegment
@@ -123,7 +123,7 @@ def show_quadrature_formulas() -> None:
 
     with left_column:
         st.subheader(r'Формула Симпсона $$(\left. 1 \middle/ 3 \right.)$$')
-        method = OptimizedSimpsonMethod()
+        method = OptimizedFirstSimpsonMethod()
         approximate_solution = method.integrate(
             f=f,
             segment=segment,
