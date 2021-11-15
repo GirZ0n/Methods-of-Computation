@@ -52,10 +52,10 @@ class OptimizedSecondSimpsonMethod(NumericalIntegrator):
         boundary_sum = f(points.pop(0)) + f(points.pop(-1))
 
         third_sum = 0
-        if len(points[2::3]) != 0:
+        if points[2::3]:
             third_sum = sum(f(points[2::3]))
 
-        del points[2::3]
+        del points[2::3]  # noqa: WPS420
         non_third_sum = sum(f(points))
 
         h = segment.length / (3 * n)
