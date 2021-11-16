@@ -7,7 +7,7 @@ def show_sidebar():
     with st.sidebar:
         st.title('Параметры задачи')
 
-        function = st.text_input('f(x):', value='x^3 + x^2 + 1')
+        function = st.text_input('f(x):', value='x^4 + x^2 + 1')
         StateVar.FUNCTION.set(function)
 
         a = st.number_input('A:', value=float(1))
