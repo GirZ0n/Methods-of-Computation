@@ -22,8 +22,8 @@ from src.common.methods.numerical_integration.simpson_methods import (
 )
 from src.common.model.line_segment import LineSegment
 from src.common.model.numerical_integrator import NumericalIntegrator
-from src.tasks.task4.subtask_1.common.state_var import StateVar
-from src.tasks.task4.subtask_1.fragments.sidebar import show_sidebar
+from src.tasks.task4.subtask1.common.state_var import StateVar
+from src.tasks.task4.subtask1.fragments.sidebar import show_sidebar
 
 METHOD_TO_CONSTANT: Dict[Type[NumericalIntegrator], float] = {
     LeftRectangleMethod: 1 / 2,

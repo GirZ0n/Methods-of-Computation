@@ -17,8 +17,8 @@ from src.common.methods.numerical_integration.rectangle_methods import (
 )
 from src.common.methods.numerical_integration.simpson_methods import OptimizedFirstSimpsonMethod, SecondSimpsonMethod
 from src.common.model.line_segment import LineSegment
-from src.tasks.task4.subtask_3.common.state_var import StateVar
-from src.tasks.task4.subtask_3.fragments.sidebar import show_sidebar
+from src.tasks.task4.subtask3.common.state_var import StateVar
+from src.tasks.task4.subtask3.fragments.sidebar import show_sidebar
 
 
 def _show_result(precise_solution: float, approximate_solution: float, approximate_solution_lx: float, r: int):

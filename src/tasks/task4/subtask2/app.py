@@ -20,9 +20,9 @@ from src.common.methods.numerical_integration.simpson_methods import (
     SecondSimpsonMethod,
 )
 from src.common.model.line_segment import LineSegment
-from src.tasks.task4.subtask_2.common.state_var import StateVar
-from src.tasks.task4.subtask_2.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
-from src.tasks.task4.subtask_2.fragments.sidebar import show_sidebar
+from src.tasks.task4.subtask2.common.state_var import StateVar
+from src.tasks.task4.subtask2.fragments.plots import show_cubic_simpson, show_polygon, show_quadratic_simpson
+from src.tasks.task4.subtask2.fragments.sidebar import show_sidebar
 
 
 def _show_result(precise_solution: float, approximate_solution: float):
