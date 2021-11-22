@@ -19,7 +19,7 @@ TRANSFORMATIONS = standard_transformations + (
 
 
 class COLOR(Enum):
-    STREAMLIT = '#FF2B68'
-    STREAMLIT_BLUE = '#5E5698'
+    STREAMLIT = '#F63366'
+    STREAMLIT_BLUE = '#5B5F97'
     LIGHT_GRAY = '#d3d3d3'
-    DARK_GRAY = '#A9A9A9'
+    DARK_GRAY = '#BCB8B1'

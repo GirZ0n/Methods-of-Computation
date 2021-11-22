@@ -8,9 +8,12 @@ ignore=D10, # Missing docstrings
        E402, # Module level import not at top of file.
        W503, # Line break occurred before a binary operator.
        WPS100, # Forbid blacklisted module names.
+       WPS110, # Forbid blacklisted variable names.
        WPS111, # Forbid short variable or module names.
        WPS115, # Require snake_case for naming class attributes.
        WPS201, # Forbid modules with too many imports.
+       WPS202, # Forbid too many classes and functions in a single module.
+       WPS204, # Forbid overused expressions in a module, function or method.
        WPS210, # Forbid too many local variables in the unit of code.
        WPS211, # Forbid too many arguments for a function or method.
        WPS213, # Forbid putting too many expressions in a single function.
