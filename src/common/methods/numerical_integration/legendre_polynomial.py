@@ -12,14 +12,14 @@ def _get_legendre_polynomial_recursively(n: int):
         return lambda x: 1
     elif n == 1:
         return lambda x: x
-    else:
-        return (
-            lambda x: (
-                (2 * n - 1) * _get_legendre_polynomial_recursively(n - 1)(x) * x
-                - (n - 1) * _get_legendre_polynomial_recursively(n - 2)(x)
-            )
-            / n
+
+    return (
+        lambda x: (
+            (2 * n - 1) * _get_legendre_polynomial_recursively(n - 1)(x) * x
+            - (n - 1) * _get_legendre_polynomial_recursively(n - 2)(x)
         )
+        / n
+    )
 
 
 class LegendrePolynomial:
@@ -31,15 +31,11 @@ class LegendrePolynomial:
     def __call__(self, x: float) -> float:
         return self._as_lambda(x)
 
-    @cached_property
-    def _as_lambda(self) -> Callable[[float], float]:
-        return _get_legendre_polynomial_recursively(self.degree)
-
     def get_roots(
         self,
-        line_segment: LineSegment = LineSegment(-1, 1),
+        line_segment: LineSegment = LineSegment(-1, 1),  # noqa: B008, WPS404
         number_of_part: int = 10000,
-        accuracy: float = 10 ** -12,
+        accuracy: float = 10 ** -12,  # noqa: WPS404
     ) -> List[float]:
         tabulator = Tabulator(number_of_part)
         segments = tabulator.separate(f=self, line_segment=line_segment)
@@ -50,3 +46,7 @@ class LegendrePolynomial:
             roots.append(secant_method.find(derivatives=[self], line_segment=segment, accuracy=accuracy))
 
         return roots
+
+    @cached_property
+    def _as_lambda(self) -> Callable[[float], float]:
+        return _get_legendre_polynomial_recursively(self.degree)
