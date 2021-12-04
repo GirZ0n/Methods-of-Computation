@@ -88,8 +88,6 @@ def show_mohler_method() -> None:
         options=range(1, StateVar.MAX_NUMBER_OF_NODES.get() + 1),
     )
 
-    segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())
-
     f_expression = parse_expr(StateVar.FUNCTION.get(), transformations=TRANSFORMATIONS)
     f = lambdify('x', f_expression)
 
@@ -102,8 +100,8 @@ def show_mohler_method() -> None:
     )
 
     for number_of_nodes in nodes:
-        roots = get_mohler_roots(number_of_nodes, segment)
-        coefficients = get_mohler_coefficients(number_of_nodes, segment)
+        roots = get_mohler_roots(number_of_nodes)
+        coefficients = get_mohler_coefficients(number_of_nodes)
         _show_results(f, precise_solution, number_of_nodes, roots, coefficients, MohlerMethod())
 
 
