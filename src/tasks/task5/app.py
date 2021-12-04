@@ -20,8 +20,6 @@ from src.common.model.numerical_integrator import NumericalIntegrator
 from src.tasks.task5.common.state_var import StateVar
 from src.tasks.task5.fragments.sidebar import show_sidebar
 
-MAXIMUM_NUMBER_OF_NODES = 8
-
 
 def _show_results(
     f: Callable,
