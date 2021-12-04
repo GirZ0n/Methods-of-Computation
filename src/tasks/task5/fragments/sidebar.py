@@ -1,6 +1,6 @@
 import streamlit as st
 
-from src.tasks.task5.subtask1.common.state_var import StateVar
+from src.tasks.task5.common.state_var import StateVar
 
 
 def show_sidebar():

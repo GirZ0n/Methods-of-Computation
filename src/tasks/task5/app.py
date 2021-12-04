@@ -17,8 +17,8 @@ from src.common.methods.numerical_integration.mohler_method import (
 )
 from src.common.model.line_segment import LineSegment
 from src.common.model.numerical_integrator import NumericalIntegrator
-from src.tasks.task5.subtask1.common.state_var import StateVar
-from src.tasks.task5.subtask1.fragments.sidebar import show_sidebar
+from src.tasks.task5.common.state_var import StateVar
+from src.tasks.task5.fragments.sidebar import show_sidebar
 
 MAXIMUM_NUMBER_OF_NODES = 8
 
