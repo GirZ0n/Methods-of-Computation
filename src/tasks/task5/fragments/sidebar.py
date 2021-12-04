@@ -10,23 +10,26 @@ def show_sidebar():
         method_name = st.selectbox('Метод:', options=['Гаусса', 'Мелера'])
         StateVar.METHOD_NAME.set(method_name)
 
-        if method_name == 'Гаусса':
-            default_function = 'sin(x) / x'
-            default_a = 0
-            default_b = 2
-        else:
+        default_function = 'sin(x) / x'
+        if method_name != 'Гаусса':
             default_function = 'cos(x)'
-            default_a = -1
-            default_b = 1
 
         function = st.text_input('f(x):', value=default_function)
         StateVar.FUNCTION.set(function)
 
-        a = st.number_input('A:', value=float(default_a))
-        StateVar.LEFT_BOUNDARY.set(a)
+        if method_name == 'Гаусса':
+            a = st.number_input('A:', value=float(0))
+            StateVar.LEFT_BOUNDARY.set(a)
+        else:
+            st.write('$A = -1$')
+            StateVar.LEFT_BOUNDARY.set(-1)
 
-        b = st.number_input('B:', value=float(default_b))
-        StateVar.RIGHT_BOUNDARY.set(b)
+        if method_name == 'Гаусса':
+            b = st.number_input('B:', value=float(2))
+            StateVar.RIGHT_BOUNDARY.set(b)
+        else:
+            st.write('$B = 1$')
+            StateVar.RIGHT_BOUNDARY.set(1)
 
         with st.expander('Дополнительные параметры:'):
             precision = int(st.number_input('Точность вывода:', value=12))
