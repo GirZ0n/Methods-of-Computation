@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas as pd
 import streamlit as st
 from sympy import integrate, lambdify, parse_expr
 
