@@ -74,7 +74,7 @@ def show_gaussian_method() -> None:
         integrate(f_expression, ('x', StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())),
     )
 
-    for number_of_nodes in nodes:
+    for number_of_nodes in sorted(nodes):
         roots = get_gaussian_roots(number_of_nodes, segment)
         coefficients = get_gaussian_coefficients(number_of_nodes, segment)
         _show_results(f, precise_solution, number_of_nodes, roots, coefficients, GaussianMethod())
@@ -97,7 +97,7 @@ def show_mohler_method() -> None:
         integrate(f_expression_with_weight, ('x', StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())),
     )
 
-    for number_of_nodes in nodes:
+    for number_of_nodes in sorted(nodes):
         roots = get_mohler_roots(number_of_nodes)
         coefficients = get_mohler_coefficients(number_of_nodes)
         _show_results(f, precise_solution, number_of_nodes, roots, coefficients, MohlerMethod())
