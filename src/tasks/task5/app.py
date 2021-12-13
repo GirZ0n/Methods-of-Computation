@@ -1,8 +1,12 @@
+import sys
 from typing import Callable, List
 
 import pandas as pd
 import streamlit as st
 from sympy import integrate, lambdify, parse_expr
+
+sys.path.append('')
+sys.path.append('../../..')
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.gaussian_method import (
