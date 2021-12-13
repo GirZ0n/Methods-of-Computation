@@ -130,11 +130,12 @@ def show_results(n: int) -> None:
 
     with left_column:
         st.markdown(fr'$I_\text{{вес}} = {actual_weight}$')
-        st.markdown(fr'$I_\text{{скф}} = {actual_composition}$')
-
-    with right_column:
         if StateVar.SHOW_PRECISE_SOLUTION.get():
             st.markdown(fr'$|I_\text{{вес}} - I| = {abs(actual_weight - precise)}$')
+
+    with right_column:
+        st.markdown(fr'$I_\text{{скф}} = {actual_composition}$')
+        if StateVar.SHOW_PRECISE_SOLUTION.get():
             st.markdown(fr'$|I_\text{{скф}} - I| = {abs(actual_composition - precise)}$')
 
 
