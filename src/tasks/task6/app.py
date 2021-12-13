@@ -1,10 +1,14 @@
 import operator
+import sys
 from itertools import cycle, islice
 
 import numpy as np
 import pandas as pd
 import streamlit as st
 from sympy import Symbol, integrate, lambdify, latex, parse_expr
+
+sys.path.append('')
+sys.path.append('../../..')
 
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.gaussian_method import (
