@@ -29,28 +29,28 @@ def gaussian_method_with_weight(n: int) -> float:
     f = lambdify('x', f_expr)
 
     moments = []
-    for i in range(2 * n):
+    for i in range(2 * n):  # noqa: WPS440
         moments.append(_calculate_moment(rho, i, StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()))
 
     a = []
-    for i in range(n):
+    for i in range(n):  # noqa: WPS440
         a.append(list(reversed(list(islice(cycle(moments), i, i + n)))))
 
     b = []
-    for i in range(n, 2 * n):
+    for i in range(n, 2 * n):  # noqa: WPS440
         b.append(moments[i] * -1)
 
     polynomial_coefficients = np.linalg.solve(a, b)
     polynomial_coefficients = np.concatenate(([1], polynomial_coefficients))
 
-    polynomial = 0
-    for power, coefficient in enumerate(reversed(polynomial_coefficients)):
-        polynomial += Symbol('x') ** power * coefficient
+    polynomial = sum(
+        (Symbol('x') ** power * coefficient for power, coefficient in enumerate(reversed(polynomial_coefficients))),
+    )
 
-    roots = list(sorted(np.roots(polynomial_coefficients)))
+    roots = sorted(np.roots(polynomial_coefficients))
 
     a = []
-    for i in range(n):
+    for i in range(n):  # noqa: WPS440
         a.append(list(map(lambda x: operator.pow(x, i), roots)))
 
     coefficients = np.linalg.solve(a, moments[:n])
@@ -138,7 +138,7 @@ def main():
     show_sidebar()
 
     st.markdown(
-        f"""
+        """
         <h1 style='text-align: center'>
             Приближённое вычисление интегралов при помощи КФ НАСТ
         </h1>
