@@ -8,6 +8,7 @@ from sympy import integrate, lambdify, parse_expr
 sys.path.append('')
 sys.path.append('../../..')
 
+from src.common.utils import plot_on_horizontal_axis
 from src.common.consts import TRANSFORMATIONS
 from src.common.methods.numerical_integration.gaussian_method import (
     GaussianMethod,
@@ -25,6 +26,9 @@ from src.tasks.task5.common.state_var import StateVar
 from src.tasks.task5.fragments.sidebar import show_sidebar
 
 
+_AXIS_THRESHOLD = 4
+
+
 def _show_results(
     f: Callable,
     precise_solution: float,
@@ -35,22 +39,36 @@ def _show_results(
 ) -> None:
     st.subheader(f'Узлов: {number_of_nodes}')
 
+    segment = LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get())
+
     if StateVar.SHOW_TABLE.get():
+        left_column, right_column = st.columns(2)
+
         df = pd.DataFrame({'Корни': roots, 'Коэффициенты': coefficients})
-        precision = StateVar.PRECISION.get()
 
-        styler = df.style
-        styler.format(precision=precision)
+        with left_column:
+            precision = StateVar.PRECISION.get()
 
-        st.dataframe(styler)
+            styler = df.style
+            styler.format(precision=precision)
 
-        st.write(fr'$\sum\limits_{{k = 0}}^{{{number_of_nodes - 1}}} a_k = {sum(coefficients)}$')
+            st.dataframe(styler)
 
-    approximate_solution = method.integrate(
-        f=f,
-        segment=LineSegment(StateVar.LEFT_BOUNDARY.get(), StateVar.RIGHT_BOUNDARY.get()),
-        n=number_of_nodes,
-    )
+        with right_column:
+            st.latex(fr'\sum\limits_{{k = 0}}^{{{number_of_nodes - 1}}} a_k = {sum(coefficients)}')
+            if number_of_nodes > _AXIS_THRESHOLD:
+                st.plotly_chart(
+                    plot_on_horizontal_axis(df, 'Корни', [segment.left, segment.right, segment.midpoint]),
+                    use_container_width=True,
+                )
+
+        if number_of_nodes <= _AXIS_THRESHOLD:
+            st.plotly_chart(
+                plot_on_horizontal_axis(df, 'Корни', [segment.left, segment.right, segment.midpoint]),
+                use_container_width=True,
+            )
+
+    approximate_solution = method.integrate(f=f, segment=segment, n=number_of_nodes)
 
     precise_container = st.empty()
     st.markdown(f'$I_{{прибл.}} = {approximate_solution}$')
