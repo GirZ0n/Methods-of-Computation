@@ -30,6 +30,7 @@ ignore=D10, # Missing docstrings
        WPS421, # Forbid calling some built-in functions.
        WPS426, # Forbid lambda inside loops.
        WPS432, # Forbid magic numbers.
+       WPS435, # Forbid multiplying lists.
        WPS462, # Forbids direct usage of multiline strings.
        WPS602, # Forbid @staticmethod decorator.
 

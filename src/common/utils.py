@@ -35,7 +35,7 @@ def plot_on_horizontal_axis(df: pd.DataFrame, column: str, extra_points: Optiona
     if extra_points is not None:
         fig.add_scatter(
             x=extra_points,
-            y=[0 for _ in range(len(df))],
+            y=[0 for _ in range(len(extra_points))],
             mode='markers',
             marker_color=COLOR.STREAMLIT.value,
         )
