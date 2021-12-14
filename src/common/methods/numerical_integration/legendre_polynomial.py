@@ -23,6 +23,8 @@ def _get_legendre_polynomial_recursively(n: int):
 
 
 class LegendrePolynomial:
+    roots = {}
+
     def __init__(self, degree: int):
         assert degree >= 0, 'The degree must be non-negative.'
 
@@ -37,6 +39,9 @@ class LegendrePolynomial:
         number_of_part: int = 10000,
         accuracy: float = 10 ** -12,  # noqa: WPS404
     ) -> List[float]:
+        if (self.degree, line_segment) in self.roots:
+            return self.roots[(self.degree, line_segment)]
+
         tabulator = Tabulator(number_of_part)
         segments = tabulator.separate(f=self, line_segment=line_segment)
 
@@ -44,6 +49,8 @@ class LegendrePolynomial:
         roots = []
         for segment in segments:
             roots.append(secant_method.find(derivatives=[self], line_segment=segment, accuracy=accuracy))
+
+        self.roots[(self.degree, line_segment)] = roots
 
         return roots
 
