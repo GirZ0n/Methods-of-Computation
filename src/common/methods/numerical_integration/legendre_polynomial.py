@@ -33,14 +33,14 @@ class LegendrePolynomial:
     def __call__(self, x: float) -> float:
         return self._as_lambda(x)
 
-    def get_roots(
+    def get_roots(  # noqa: WPS615
         self,
         line_segment: LineSegment = LineSegment(-1, 1),  # noqa: B008, WPS404
         number_of_part: int = 10000,
         accuracy: float = 10 ** -12,  # noqa: WPS404
     ) -> List[float]:
         if (self.degree, line_segment) in self.roots:
-            return self.roots[(self.degree, line_segment)]
+            return self.roots[(self.degree, line_segment)]  # noqa: WPS529
 
         tabulator = Tabulator(number_of_part)
         segments = tabulator.separate(f=self, line_segment=line_segment)
