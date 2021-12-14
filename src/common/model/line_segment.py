@@ -16,6 +16,9 @@ class LineSegment:
     def __str__(self) -> str:
         return f'[{round(self.left, OUTPUT_PRECISION)}, {round(self.right, OUTPUT_PRECISION)}]'
 
+    def __hash__(self) -> int:
+        return hash((self.left, self.right))
+
     def split_into_segments(self, parts: int = 2) -> List['LineSegment']:
         points = self.split_into_points(parts)
 
