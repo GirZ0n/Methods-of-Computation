@@ -81,8 +81,8 @@ def show_polygon(  # noqa: WPS231
     segments: List[LineSegment],
     method_type: Literal['left', 'right', 'center', 'trapezoid'],
 ) -> None:
-    min_x = min(map(lambda s: s.left, segments))
-    max_x = max(map(lambda s: s.right, segments))
+    min_x = min(segment.left for segment in segments)
+    max_x = max(segment.right for segment in segments)
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
@@ -132,8 +132,8 @@ def show_polygon(  # noqa: WPS231
 
 
 def show_quadratic_simpson(f: Callable, segments: List[LineSegment]) -> None:
-    min_x = min(map(lambda s: s.left, segments))
-    max_x = max(map(lambda s: s.right, segments))
+    min_x = min(segment.left for segment in segments)
+    max_x = max(segment.right for segment in segments)
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
@@ -182,8 +182,8 @@ def show_quadratic_simpson(f: Callable, segments: List[LineSegment]) -> None:
 
 
 def show_cubic_simpson(f: Callable, segments: List[LineSegment]) -> None:
-    min_x = min(map(lambda s: s.left, segments))
-    max_x = max(map(lambda s: s.right, segments))
+    min_x = min(segment.left for segment in segments)
+    max_x = max(segment.right for segment in segments)
 
     fig = _plot_function(f, LineSegment(min_x, max_x))
 
