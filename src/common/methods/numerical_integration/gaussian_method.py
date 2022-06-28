@@ -8,7 +8,7 @@ from src.common.model.numerical_integrator import NumericalIntegrator
 def get_gaussian_roots(n: int, segment: LineSegment) -> List[float]:
     roots = LegendrePolynomial(n).get_roots()
     q = segment.length / 2
-    return list(map(lambda root: segment.left + q * (root + 1), roots))
+    return [segment.left + q * (root + 1) for root in roots]
 
 
 def get_gaussian_coefficients(n: int, segment: LineSegment) -> List[float]:
@@ -19,7 +19,7 @@ def get_gaussian_coefficients(n: int, segment: LineSegment) -> List[float]:
 
     q = segment.length / 2
 
-    return list(map(lambda coefficient: coefficient * q, coefficients))
+    return [coefficient * q for coefficient in coefficients]
 
 
 class GaussianMethod(NumericalIntegrator):
