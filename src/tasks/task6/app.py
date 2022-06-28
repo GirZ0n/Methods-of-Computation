@@ -55,7 +55,7 @@ def gaussian_method_with_weight(n: int) -> float:
 
     a = []
     for i in range(n):  # noqa: WPS440
-        a.append(list(map(lambda x: operator.pow(x, i), roots)))
+        a.append([operator.pow(x, i) for x in roots])
 
     coefficients = np.linalg.solve(a, moments[:n])
 
