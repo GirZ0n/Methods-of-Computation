@@ -115,14 +115,14 @@ def show_polygon(  # noqa: WPS231
         )
 
     if method_type == 'left':
-        points = list(map(lambda s: s.left, segments))
+        points = list(segment.left for segment in segments)
     elif method_type == 'right':
-        points = list(map(lambda s: s.right, segments))
+        points = list(segment.right for segment in segments)
     elif method_type == 'trapezoid':
-        points = list(map(lambda s: s.left, segments))
-        points += list(map(lambda s: s.right, segments))
+        points = list(segment.left for segment in segments)
+        points += list(segment.right for segment in segments)
     else:
-        points = list(map(lambda s: s.midpoint, segments))
+        points = list(segment.midpoint for segment in segments)
 
     _plot_points(fig, f, points)
 
